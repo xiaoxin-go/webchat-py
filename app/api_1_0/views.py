@@ -1,5 +1,5 @@
 from . import bp
-from flask import request, jsonify, current_app, session
+from flask import request, jsonify, current_app, session, render_template
 from app import redis_store, db
 from app.models import User
 from sqlalchemy.exc import IntegrityError
@@ -96,3 +96,33 @@ def login():
     session['id'] = user.id
 
     return jsonify({'state': 1, 'message': '登录成功'})
+
+@bp.route('/check_login', methods=['GET'])
+def check_login():
+    """
+    检查用户是否登录
+    :return:
+    """
+    username = session.get('username')
+    if not username:
+        return jsonify({'state': 2, 'message': '用户未登录'})
+
+    nickname = session.get('nickname')
+    id = session.get('id')
+
+    # 返回已登录状态，和用户数据
+    return jsonify({'state': 1, 'user_data': {'username': username, 'nickname': nickname, 'id': id}})
+
+@bp.route('/', methods=['GET'])
+def index():
+    """
+    返回项目主页
+    :return:
+    """
+    return render_template('index.html')
+
+@bp.route('/logout', methods=['POST'])
+def logout():
+    """ 用户退出登录 """
+    session.clear()     # 清除用户session
+    return jsonify({'state': 1,'message': '用户退出成功'})

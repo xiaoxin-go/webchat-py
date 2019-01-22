@@ -30,12 +30,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="5928" />
+          <entry key="py" value="6637" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="5928" />
+          <entry key="Python" value="6637" />
         </counts>
       </usages-collector>
     </session>
@@ -108,12 +108,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/api_1_0/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+            <state relative-caret-position="422">
+              <caret line="127" column="49" selection-start-line="127" selection-start-column="49" selection-end-line="127" selection-end-column="49" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
-                <marker date="1548148737042" expanded="true" signature="229:234" ph="..." />
-                <marker date="1548148737042" expanded="true" signature="1241:1246" ph="..." />
+                <marker date="1548149819475" expanded="true" signature="246:251" ph="..." />
+                <marker date="1548149819475" expanded="true" signature="1258:1263" ph="..." />
+                <marker date="1548149819475" expanded="true" signature="2753:3104" ph="..." />
+                <marker date="1548149819475" expanded="true" signature="3148:3153" ph="..." />
+                <marker date="1548149819475" expanded="true" signature="3302:3307" ph="..." />
               </folding>
             </state>
           </provider>
@@ -227,11 +230,11 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.33002833" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.2082153" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -316,12 +319,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api_1_0/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+        <state relative-caret-position="422">
+          <caret line="127" column="49" selection-start-line="127" selection-start-column="49" selection-end-line="127" selection-end-column="49" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
-            <marker date="1548148737042" expanded="true" signature="229:234" ph="..." />
-            <marker date="1548148737042" expanded="true" signature="1241:1246" ph="..." />
+            <marker date="1548149819475" expanded="true" signature="246:251" ph="..." />
+            <marker date="1548149819475" expanded="true" signature="1258:1263" ph="..." />
+            <marker date="1548149819475" expanded="true" signature="2753:3104" ph="..." />
+            <marker date="1548149819475" expanded="true" signature="3148:3153" ph="..." />
+            <marker date="1548149819475" expanded="true" signature="3302:3307" ph="..." />
           </folding>
         </state>
       </provider>
