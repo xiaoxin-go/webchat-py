@@ -126,3 +126,20 @@ def logout():
     """ 用户退出登录 """
     session.clear()     # 清除用户session
     return jsonify({'state': 1,'message': '用户退出成功'})
+
+@bp.route('/user', methods=['PUT'])
+def user():
+    """  修改用户信息 """
+
+    request_data = request.json
+    username = request_data.get('username')
+    if not username:
+        return {'state': 2, 'message': '缺失必要参数'}
+    old_password = request_data.get('old_password')
+
+    # 如果密码存在，则为修改密码
+    if old_password:
+        pass
+    # 否则为修改昵称
+    else:
+        pass

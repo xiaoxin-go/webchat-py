@@ -16,9 +16,11 @@ class User(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)    # 用户ID
     username = db.Column(db.String(32), unique=True, nullable=False)    # 用户名
-    nickname = db.Column(db.String(32))      # 用户昵称
+    nickname = db.Column(db.String(32))             # 用户昵称
     password_hash = db.Column(db.String(128), nullable=False)       # 加密后的密码
-    logo = db.Column(db.String(128))        # 用户头像
+    logo = db.Column(db.String(128))                # 用户头像
+    state = db.Column(db.Integer, default=0)        # 用户状态，是否在线，在线为1
+    is_admin = db.Column(db.Integer, default=0)     # 是否是管理员，默认为0
 
     @property
     def password(self):
@@ -55,3 +57,73 @@ class User(BaseModel, db.Model):
             'create_time': self.create_time
         }
         return user_dict
+
+
+class Friends(BaseModel, db.Model):
+    """  好友表 """
+
+    __tablename__ = 't_friends'
+
+    id = db.Column(db.Integer, primary_key=True)        # 好友表ID
+    user_id = db.column(db.Integer, db.ForeignKey('t_user.id'))    # 用户ID
+    friend_id = db.column(db.Integer, db.ForeignKey('t_user.id'))  # 好友ID
+    remark = db.Column(db.String(32))   # 备注名称
+
+
+class Group(BaseModel, db.Model):
+    """ 群组表 """
+
+    __tablename__ = 't_group'
+
+    id = db.Column(db.Integer, primary_key=True)        # 群组ID
+    group_name = db.Column(db.String(32))               # 群组名称
+
+
+class GroupsToUser(BaseModel, db.Model):
+    """  群组成员表 """
+
+    __tablename__ = 't_groupuser'
+    id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('t_group.id'), nullable=False)         # 群组ID，外键群组
+    user_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)           # 成员ID，外键用户
+    remark = db.Column(db.String(32))                                      # 备注名称
+    type = db.Column(db.Integer, default=2)                     # 成员类型，{0: 群主，1:管理员，2：普通成员}
+
+
+class GroupsMsgContent(BaseModel, db.Model):
+    """  群消息表 """
+
+    __tablename__ = 't_groupsmsgcontent'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)        # 消息内容
+    from_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)     # 发送者ID
+    from_name = db.Column(db.String(32), nullable=False)    # 发送者昵称
+
+    def to_dict(self):
+        msg_dict = {
+            'id': self.id,
+            'content': self.content,
+            'from_id': self.from_id,
+            'from_name': self.from_name
+        }
+        return msg_dict
+
+
+class Messages(BaseModel, db.Model):
+    """  聊天记录表 """
+
+    __tablename__ = 'messages'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)        # 消息内容
+    from_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)   # 发送者ID
+    to_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)     # 接收者ID
+    message_type = db.Column(db.String(32), default='text')     # 消息类型
+
+    def to_dict(self):
+        msg_dict = {
+            'id': self.id,
+            'content': self.content,
+            'from_id': self.from_id,
+            'to_id': self.to_id
+        }
+        return msg_dict

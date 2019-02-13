@@ -1,11 +1,12 @@
 import redis
+import pymysql
 
 class Config:
     """配置信息"""
     SECRET_KEY = 'XHSOI*Y9dfs9cshd9'
 
     # 数据库配置
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:mysql@127.0.0.1:3306/webchat'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root!@#$@127.0.0.1:3306/webchat'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
     # redis配置
