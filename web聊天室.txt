@@ -1,0 +1,167 @@
+模块：
+用户管理：
+
+用户登录：Login		=> 	/login 			=> login.LoginHandler
+	请求：post
+	参数：{
+		username: 用户名,
+		password: 密码
+	}
+	返回：{
+		state: 状态值， {0: 异常，1: 成功，2: 失败},
+		message: 返回消息
+	}
+
+用户注册： Register	=>	/register 		=> register.RegisterHandler
+	请求： post
+	参数：{
+		username: 用户名，
+		password: 密码
+	}
+	返回：{
+		state: 状态值，{0: 异常，1：成功，2：失败},
+		message: 返回消息
+	}
+
+用户注销： Logout	=>	/logout 		=>	logout.LogoutHandler
+	请求： post
+	参数： {
+		username: username
+	}
+	返回：{
+		state: 状态值，{0: 异常，1：成功，2：失败},
+		message: 返回消息
+	}
+
+
+
+用户修改： updateUser	=>	/user 		=>	user.UserHandler
+	请求： put
+	参数： {
+		name: 用户名
+		old_password: 用户密码		// 判断old_password是否在数据中，若存在则为修改密码，否则为修改昵称
+		new_password: 新密码
+		nickname: 用户昵称
+	}
+	返回：{
+		state： 状态值，{0: 异常，1：成功，2：失败}
+	}
+
+
+添加群组： addGroup		=>		/group  	=>  	group.GroupHandler
+	请求： post
+	参数： {
+		user_id: 用户ID，	只有站长或管理员能创建群
+		group_name: 群组名称， 
+		logo: 群组头像，
+	}
+	返回： {
+		state: 状态值，{0: 异常，1：成功，2：失败}
+	}
+	逻辑：
+	1. 获取用户ID，判断用户是否存在，判断用户是否拥有建群权限
+	2. 获取群组名称，判断群组名称是否存在
+	3. 添加群，然后在群成员表中将此用户加入，类型设置为群主
+	4. 随机选取一张图片做为群图片
+
+修改群组信息： updateGroup	=>	/group 			=>		group.GroupHandler
+	请求： put
+	参数： {
+		group_id: 要修改的群组ID，
+		group_name: 群组名称，
+		group_logo: 群组头像，
+		user_id: 用户ID
+	}
+	返回：{
+		state: 状态值，{0: 异常，1：成功，2：失败}
+	}
+	逻辑：
+	1. 获取要修改的群组ID，用户ID，群组名称和群组头像，并判断是否存在，名称和头像必须存在一个
+	2. 判断群组是否存在，判断用户是否存在，并且判断用户是否拥有修改群组信息权限，只有管理员和群主和站长有权限
+	3. 修改群组信息
+
+删除群组信息： deleteGroup	=>	/grpup 		=>		group.GroupHandler
+	请求： delete
+	参数： {
+		group_id: 要删除的群组ID
+		user_id: 用户ID
+	}
+	返回：{
+		state: 状态值，{0: 异常，1：成功，2：失败}
+	}
+	逻辑：
+	1. 获取群组ID和用户ID，判断群组和用户是否存在
+	2. 判断用户是否拥有删除群组权限
+	3. 删除群组，并且删除群组成员
+
+
+群组添加成员： groupAdd 		=>	/group_user		=>		group_user.GroupUserHandler
+	请求： post
+	参数：{
+		group_id: 当前群组ID
+		member_list: 添加成员
+	}
+	返回：{
+		state: 状态值，{0: 异常，1：成功，2：失败}
+	}
+
+群组删除成员： groupDel 		=>	/group_user		=>		group_user.GroupUserHanler
+	请求： delete
+	参数：{
+		group_id: 当前群组ID，
+		user_id: 用户ID，
+		member_list: 成员列表
+	}
+	返回： {
+		state: 状态值，{0: 异常，1：成功，2：失败}
+	}
+	逻辑：
+	1. 获取群组，用户，成员列表，判断是否为空
+	2. 获取用户信息，判断用户是否为副站长或者群主或者群管理员，是否有T人权限，并且管理员不能踢除管理员，站长可以T
+	3. 将成员从群组中删除
+
+
+
+删除好友： delFriend		=>	/friend 	=>	friend.FriendHandler
+	请求： del
+	参数： {
+		user_id: 当前用户ID
+		friend_name: 当前好友名称
+	}
+	返回：{
+		state:　删除状态
+	}
+
+
+好友申请处理：  
+
+
+
+用户消息数据格式
+
+message_data = {
+	name: [{'name': '', 'logo': '', 'message': ''}]
+}
+
+聊天列表：[
+	{
+	id: '',
+	name: '',
+	logo: '',
+	'type': '',
+	'friend_list': [
+		{
+			'id': '',
+			'name': '',
+			'logo': '',
+		}
+	]
+	}]
+
+好友数据格式：{
+	username: '',
+	nickname: '',
+	remark_name: '',
+	logo: '',
+	type: '',
+}

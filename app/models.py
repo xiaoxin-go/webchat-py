@@ -2,6 +2,7 @@ from datetime import datetime
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 class BaseModel:
     """  模型基类，为每个模型补充创建时间与更新时间  """
 
@@ -16,11 +17,11 @@ class User(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)    # 用户ID
     username = db.Column(db.String(32), unique=True, nullable=False)    # 用户名
-    nickname = db.Column(db.String(32))             # 用户昵称
+    nickname = db.Column(db.String(32), nullable=False)             # 用户昵称
     password_hash = db.Column(db.String(128), nullable=False)       # 加密后的密码
     logo = db.Column(db.String(128))                # 用户头像
     state = db.Column(db.Integer, default=0)        # 用户状态，是否在线，在线为1
-    is_admin = db.Column(db.Integer, default=0)     # 是否是管理员，默认为0
+    type = db.Column(db.Integer, default=2)     # 用户类型， {0: 站长，1：副站长， 2：用户}
 
     @property
     def password(self):
@@ -75,8 +76,17 @@ class Group(BaseModel, db.Model):
 
     __tablename__ = 't_group'
 
-    id = db.Column(db.Integer, primary_key=True)        # 群组ID
-    group_name = db.Column(db.String(32))               # 群组名称
+    id = db.Column(db.Integer, primary_key=True)                        # 群组ID
+    group_name = db.Column(db.String(32), nullable=False)               # 群组名称
+    logo = db.Column(db.String(32), nullable=False)                     # 群头像
+
+    def to_dict(self):
+        group_dict = {
+            'id': self.id,
+            'group_name': self.group_name,
+            'logo': self.logo
+        }
+        return group_dict
 
 
 class GroupsToUser(BaseModel, db.Model):
