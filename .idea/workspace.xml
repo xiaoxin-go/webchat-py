@@ -37,12 +37,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="28282" />
+          <entry key="py" value="28547" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="28282" />
+          <entry key="Python" value="28547" />
         </counts>
       </usages-collector>
     </session>
@@ -143,14 +143,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/api_1_0/methods.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
+            <state relative-caret-position="196">
+              <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1550128444323" expanded="true" signature="233:5678" ph="..." />
-                <marker date="1550128444323" expanded="true" signature="1413:5678" ph="..." />
-                <marker date="1550128444323" expanded="true" signature="12738:12743" ph="..." />
-                <marker date="1550128444323" expanded="true" signature="21296:21674" ph="..." />
+                <marker date="1550134246247" expanded="true" signature="233:5532" ph="..." />
+                <marker date="1550134246247" expanded="true" signature="1939:5532" ph="..." />
+                <marker date="1550134246247" expanded="true" signature="12592:12597" ph="..." />
+                <marker date="1550134246247" expanded="true" signature="21150:21528" ph="..." />
               </folding>
             </state>
           </provider>
@@ -200,7 +200,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1939" />
@@ -386,14 +386,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api_1_0/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
+        <state relative-caret-position="196">
+          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1550128444323" expanded="true" signature="233:5678" ph="..." />
-            <marker date="1550128444323" expanded="true" signature="1413:5678" ph="..." />
-            <marker date="1550128444323" expanded="true" signature="12738:12743" ph="..." />
-            <marker date="1550128444323" expanded="true" signature="21296:21674" ph="..." />
+            <marker date="1550134246247" expanded="true" signature="233:5532" ph="..." />
+            <marker date="1550134246247" expanded="true" signature="1939:5532" ph="..." />
+            <marker date="1550134246247" expanded="true" signature="12592:12597" ph="..." />
+            <marker date="1550134246247" expanded="true" signature="21150:21528" ph="..." />
           </folding>
         </state>
       </provider>

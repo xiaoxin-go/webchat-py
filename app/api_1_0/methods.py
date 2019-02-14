@@ -53,6 +53,22 @@ class BaseHandler:
 
         return user_obj
 
+    def commit(self, content1=None, content2=None):
+        try:
+            db.session.commit()
+        except IntegrityError as e:
+            # 数据库操作错误后的回滚
+            db.session.rollback()
+            # 此错误信息表示用户被注册过
+            current_app.logger.error(e)
+            self.result = {'state': 2, 'message': content1}
+            return
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(e)
+            self.result = {'state': 2, 'message': content2}
+        return True
+
 
 class UserHandler(BaseHandler):
     """ 用户操作 """
@@ -65,15 +81,8 @@ class UserHandler(BaseHandler):
             return
 
         # 判断用户是否存在
-        try:
-            user_obj = User.query.get(self.user_id)
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '用户查询异常'}
-            return
-
+        user_obj = self.check_user()
         if not user_obj:
-            self.result = {'state': 2, 'message': '用户信息不存在'}
             return
 
         # 判断用户是否拥有查询用户权限， 只有站长和副站长拥有查询权限
@@ -109,23 +118,9 @@ class UserHandler(BaseHandler):
 
         # 设置密码
         user_obj.password = password        # 已自动加密
+        db.session.add(user_obj)
 
-        try:
-            db.session.add(user_obj)
-            db.session.commit()
-        except IntegrityError as e:
-            # 数据库操作错误后的回滚
-            db.session.rollback()
-            # 此错误信息表示用户被注册过
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '用户已存在'}
-            return
-
-        except Exception as e:
-            db.session.rollback()
-            # 数据库操作异常
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '添加用户异常'}
+        if not self.commit('用户已存在', '用户添加异常'):
             return
 
         # 注册成功
