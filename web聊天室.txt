@@ -12,16 +12,7 @@
 		message: 返回消息
 	}
 
-用户注册： Register	=>	/register 		=> register.RegisterHandler
-	请求： post
-	参数：{
-		username: 用户名，
-		password: 密码
-	}
-	返回：{
-		state: 状态值，{0: 异常，1：成功，2：失败},
-		message: 返回消息
-	}
+
 
 用户注销： Logout	=>	/logout 		=>	logout.LogoutHandler
 	请求： post
@@ -33,12 +24,39 @@
 		message: 返回消息
 	}
 
+用户注册： Register	=>	/user 		=> user.UserHandler
+	请求： post
+	参数：{
+		username: 用户名，
+		password: 密码
+	}
+	返回：{
+		state: 状态值，{0: 异常，1：成功，2：失败},
+		message: 返回消息
+	}
+
+
+用户获取： getUser		=>	/user 		=>	user.UserHandler
+	请求： get
+	参数：{
+		username: 用户名, 
+		user_id: 用户ID
+	}
+	返回：{
+		state： 状态值，{0: 异常，1：成功，2：失败}， 
+		data_list: 用户列表
+		total: 条数
+	}
+	逻辑：
+	1. 获取用户名，用户ID
+	2. 判断查询用户是否存在，并且是否拥有搜索权限，只有站长和副站长拥有搜索权限
+	3. 若用户名存在，则返回单个用户，否则返回所有用户 
 
 
 用户修改： updateUser	=>	/user 		=>	user.UserHandler
 	请求： put
 	参数： {
-		name: 用户名
+		username: 用户名
 		old_password: 用户密码		// 判断old_password是否在数据中，若存在则为修改密码，否则为修改昵称
 		new_password: 新密码
 		nickname: 用户昵称
@@ -47,7 +65,10 @@
 		state： 状态值，{0: 异常，1：成功，2：失败}
 	}
 
+删除用户： deleteUser	=>	/user 		=>	user.UserHandler
 
+
+/*----------------------------    群组操作   ---------------------------------*/
 添加群组： addGroup		=>		/group  	=>  	group.GroupHandler
 	请求： post
 	参数： {
@@ -63,6 +84,9 @@
 	2. 获取群组名称，判断群组名称是否存在
 	3. 添加群，然后在群成员表中将此用户加入，类型设置为群主
 	4. 随机选取一张图片做为群图片
+
+
+
 
 修改群组信息： updateGroup	=>	/group 			=>		group.GroupHandler
 	请求： put
@@ -95,28 +119,70 @@
 	3. 删除群组，并且删除群组成员
 
 
-群组添加成员： groupAdd 		=>	/group_user		=>		group_user.GroupUserHandler
+
+/*---------------------------------   群组成员操作   ---------------------------------*/
+获取群成员列表： getGroupUser		=>	/group_user		=>		group_user.GroupUserHandler
+	请求： get
+	参数： {
+		user_id: 用户ID
+		group_id: 群组ID
+	}
+	返回： {
+		state: 状态值，
+		data_list: 成员列表，
+		total: 条数
+	}
+	逻辑：
+	1. 获取用户ID，群组ID，判断用户和群组是否存在
+	2. 判断用户是否拥有获取群组信息权限，只有站长或者群成员拥有获取群成员权限
+	3. 返回成员列表
+
+群组添加成员： addGroupUser 		=>	/group_user		=>		group_user.GroupUserHandler
 	请求： post
 	参数：{
 		group_id: 当前群组ID
 		member_list: 添加成员
+		user_id: 用户ID
 	}
 	返回：{
 		state: 状态值，{0: 异常，1：成功，2：失败}
 	}
+	逻辑：
+	1. 获取群组ID，用户ID，成员列表，判断是否为空
+	2. 获取群组对象，判断群组是否存在
+	3. 获取用户对象，判断用户是否有添加成员权限，只有站长，群主，管理员有加人权限
+	4. 添加成员
 
-群组删除成员： groupDel 		=>	/group_user		=>		group_user.GroupUserHanler
+群组修改成员： putGroupUser	=>	/group_user		=>		group_user.GroupUserHandler
+	请求： post
+	参数：{
+		group_id: 当前群组ID，
+		user_id: 用户ID，
+		to_user_id: 要修改备注名的用户ID，
+		remark_name: 备注名称, 
+		group_type: 修改用户状态，[1, 2]	
+	}
+	返回：{
+		state: 状态值，{0: 异常，1：成功，2：失败}
+	}
+	逻辑：
+	1. 获取群组ID，用户ID，被修改用户ID，备注名称，判断是否为空
+	2. 判断群组是否存在，用户是否存在
+	3. 判断用户是否在群组中
+	4. 判断用户是否拥有修改权限，除管理员，群主，站长外，本人只能修改本人的备注名
+
+群组删除成员： deleteGroupUser 		=>	/group_user		=>		group_user.GroupUserHanler
 	请求： delete
 	参数：{
 		group_id: 当前群组ID，
 		user_id: 用户ID，
-		member_list: 成员列表
+		to_user_id: 被删除成员ID
 	}
 	返回： {
 		state: 状态值，{0: 异常，1：成功，2：失败}
 	}
 	逻辑：
-	1. 获取群组，用户，成员列表，判断是否为空
+	1. 获取群组，用户，被删除成员，判断是否为空
 	2. 获取用户信息，判断用户是否为副站长或者群主或者群管理员，是否有T人权限，并且管理员不能踢除管理员，站长可以T
 	3. 将成员从群组中删除
 
