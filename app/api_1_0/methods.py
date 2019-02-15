@@ -53,6 +53,43 @@ class BaseHandler:
 
         return user_obj
 
+    def check_group(self, group_id):
+        """  检查群组是否存在 """
+        try:
+            group_obj = Group.query.get(group_id)
+        except Exception as e:
+            current_app.logger.error(e)
+            self.result = {'state': 2, 'message': '群组查询异常'}
+            return
+
+        if not group_obj:
+            self.result = {'state': 2, 'message': '群组不存在'}
+            return
+
+        return group_obj
+
+    def check_group_user(self, user_id, group_id):
+        """  检查用户是否在群组中 """
+        try:
+            group_user_obj = GroupsToUser.query.filter_by(user_id=user_id, group_id=group_id).first()
+        except Exception as e:
+            current_app.logger.error(e)
+            self.result = {'state': 2, 'message': '群组成员信息查询异常'}
+            return
+
+        return group_user_obj
+
+    def query_(self, obj, sql, content):
+        """  异常查询 """
+        try:
+            query_obj = eval(obj).query.filter_by(**sql)
+        except Exception as e:
+            current_app.logger.error(e)
+            self.result = {'state': 2, 'message': content}
+            return
+
+        return query_obj
+
     def commit(self, content1=None, content2=None):
         try:
             db.session.commit()
@@ -160,12 +197,7 @@ class UserHandler(BaseHandler):
 
             # 检验成功，修改用户密码
             user_obj.password = new_password
-            try:
-                db.session.commit()
-            except Exception as e:
-                current_app.logger.error(e)
-                db.session.rollback()
-                self.result = {'state': 2, 'message': '修改密码异常'}
+            if not self.commit(content2='修改密码异常'):
                 return
 
             self.result = {'state': 1, 'message': '密码修改成功'}
@@ -177,12 +209,7 @@ class UserHandler(BaseHandler):
                 return
 
             user_obj.nickname = nickname
-            try:
-                db.session.commit()
-            except Exception as e:
-                current_app.logger.error(e)
-                db.session.rollback()
-                self.result = {'state': 2, 'message': '修改昵称异常'}
+            if not self.commit(content2='修改昵称异常'):
                 return
 
             self.result = {'state': 1, 'message': '昵称修改成功'}
@@ -231,7 +258,7 @@ class GroupHandler(BaseHandler):
             return
 
         # 获取用户，判断用户类型是否正确
-        user_obj = User.query.get(self.user_id)
+        user_obj = self.check_user()
         if not user_obj or user_obj.type not in [0, 1]:
             self.result = {'state': 2, 'message': '用户类型错误'}
             return
@@ -243,28 +270,14 @@ class GroupHandler(BaseHandler):
 
         # 添加群组
         group_obj = Group(group_name=group_name, logo=group_logo)
-        try:
-            db.session.add(group_obj)
-            db.session.commit()
-        except IntegrityError as e:
-            db.session.rollback()
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组已存在'}
+        db.session.add(group_obj)
+        if not self.commit('群组已存在', '群组添加异常'):
             return
-        except Exception as e:
-            db.session.rollback()
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组添加异常'}
 
         # 添加群组
         group_to_user = GroupsToUser(group_id=group_obj.id, user_id=self.user_id, type=0)
         db.session.add(group_to_user)
-        try:
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组添加异常'}
+        if not self.commit(content2='群组添加异常'):
             return
 
         self.result = {'state': 1, 'message': '群组添加成功'}
@@ -281,36 +294,17 @@ class GroupHandler(BaseHandler):
             return
 
         # 获取群组信息，判断群组是否存在
-        try:
-            group_obj = Group.query.get(group_id)
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组查询异常'}
-            return
-
+        group_obj = self.check_group(group_id)
         if not group_obj:
-            self.result = {'state': 2, 'message': '群组信息不存在'}
             return
 
         # 获取用户信息，判断用户是否存在
-        try:
-            user_obj = User.query.get(self.user_id)
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '用户信息查询异常'}
-            return
-
+        user_obj = self.check_user()
         if not user_obj:
-            self.result = {'state': 2, 'message': '用户信息不存在'}
             return
 
         # 判断用户是否有修改群组权限
-        try:
-            group_user_obj = GroupsToUser.query.filter_by(user_id=self.user_id, group_id=group_id).first()
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组成员信息查询异常'}
-            return
+        group_user_obj = self.check_group_user(self.user_id, group_id)
 
         # 用户不在群组中并且用户非站长， 或者用户在群组中非管理员
         if user_obj.type != 0 and (not group_user_obj or group_user_obj.type not in [0, 1]):
@@ -323,17 +317,8 @@ class GroupHandler(BaseHandler):
         if group_logo:
             group_obj.logo = group_logo
 
-        try:
-            db.session.commit()
-        except IntegrityError as e:
-            current_app.logger.error(e)
-            db.session.rollback()
-            self.result = {'state': 2, 'message': '群组名已存在'}
-            return
-        except Exception as e:
-            current_app.logger.error(e)
-            db.session.rollback()
-            self.result = {'state': 2, 'message': '群组修改异常'}
+        # 提交修改
+        if not self.commit('群组名已存在', '群组修改异常'):
             return
 
         self.result = {'state': 1, 'message': '群组信息修改成功'}
@@ -348,36 +333,17 @@ class GroupHandler(BaseHandler):
             return
 
         # 获取群组信息
-        try:
-            group_obj = Group.query.get(group_id)
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '获取群组异常'}
-            return
-
+        group_obj = self.check_group(group_id)
         if not group_obj:
-            self.result = {'state': 2, 'message': '群组不存在'}
             return
 
         # 获取用户信息
-        try:
-            user_obj = User.query.get(self.user_id)
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '获取用户信息异常'}
-            return
-
+        user_obj = self.check_user()
         if not user_obj:
-            self.result = {'state': 2, 'message': '用户信息不存在'}
             return
 
         # 获取群组成员信息
-        try:
-            group_user_obj = GroupsToUser.query.filter_by(group_id=group_id, user_id=self.user_id).first()
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '获取群组用户信息异常'}
-            return
+        group_user_obj = self.check_group_user(self.user_id, group_id)
 
         # 判断用户是否为站长，或者是否为群主
         if user_obj.type != 0 and (not group_user_obj or group_user_obj.type != 0):
@@ -386,21 +352,12 @@ class GroupHandler(BaseHandler):
 
         # 删除群组信息
         db.session.delete(group_obj)
-        try:
-            db.session.commit()
-        except Exception as e:
-            current_app.logger.error(e)
-            db.session.rollback()
-            self.result = {'state': 2, 'message': '群组信息删除异常'}
+        group_user_query = self.query_('GroupToUser', {'group_id': group_id}, '群组成员信息查询异常')
+        if not group_user_query:
             return
+        group_user_query.delete()
 
-        try:
-            GroupsToUser.query.filter_by(group_id=group_id).delete()
-            db.session.commit()
-        except Exception as e:
-            current_app.logger.error(e)
-            db.session.rollback()
-            self.result = {'state': 2, 'message': '群组信息删除异常'}
+        if not self.commit(content2='群组信息修改异常'):
             return
 
         self.result = {'state': 1, 'message': '群组信息删除成功'}
@@ -427,7 +384,7 @@ class GroupUserHandler(BaseHandler):
             return
 
         # 获取成员是否在群组中
-        group_user_obj = self.check_group_user(group_id)
+        group_user_obj = self.check_group_user(self.user_id, group_id)
 
         # 判断用户是否拥有添加成员权限，判断是否为站长，或者是否为群主或群管理员
         if user_obj.type != 0 and not group_user_obj:
@@ -435,11 +392,8 @@ class GroupUserHandler(BaseHandler):
             return
 
         # 获取成员列表
-        try:
-            group_user_query = GroupsToUser.query.filter_by(group_id=group_id)
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组成员获取异常'}
+        group_user_query = self.query_('GroupsToUser', {'group_id': group_id}, '群组成员获取异常')
+        if not group_user_query:
             return
 
         data_list = [group_user.to_dict for group_user in group_user_query]
@@ -467,7 +421,7 @@ class GroupUserHandler(BaseHandler):
             return
 
         # 获取成员是否在群组中
-        group_user_obj = self.check_group_user(group_id)
+        group_user_obj = self.check_group_user(self.user_id, group_id)
 
         # 判断用户是否拥有添加成员权限，判断是否为站长，或者是否为群主或群管理员
         if user_obj.type != 0 and (not group_user_obj or group_user_obj.type not in [0, 1]):
@@ -477,12 +431,6 @@ class GroupUserHandler(BaseHandler):
         # 添加群组信息
         for user_id in member_list:
             # 判断添加的用户是否存在
-            try:
-                user_obj = User.query.get(user_id)
-            except Exception as e:
-                current_app.logger.error(e)
-                self.result = {'state': 2, 'message': '用户查询异常'}
-                return
             user_obj = self.check_user(user_id)
             # 不存在跳过
             if not user_obj:
@@ -498,12 +446,7 @@ class GroupUserHandler(BaseHandler):
             group_user_obj = GroupsToUser(group_id=group_id, user_id=user_id)
             db.session.add(group_user_obj)
 
-        try:
-            db.session.commit()
-        except Exception as e:
-            current_app.logger.error(e)
-            db.session.rollback()
-            self.result = {'state': 2, 'message': '添加异常'}
+        if not self.commit(content2='添加异常'):
             return
 
         self.result = {'state': 1, 'message': '添加成功'}
@@ -531,47 +474,30 @@ class GroupUserHandler(BaseHandler):
             return
 
         # 检查用户和群组信息是否存在
-        check_obj = self.check_group_user(group_id, user_in_group=False)
-        if not check_obj:
+        user_obj = self.check_user()
+        if not user_obj:
             return
 
-        user_obj, group_obj = check_obj
+        group_obj = self.check_group(group_id)
+        if not group_obj:
+            return
 
         # 判断目标用户是否存在
         if self.user_id != to_user_id:
-            try:
-                to_user_obj = User.query.get(to_user_id)
-            except Exception as e:
-                current_app.logger.error(e)
-                self.result = {'state': 2, 'message': '用户信息查询异常'}
-                return
-
+            to_user_obj = self.check_user(to_user_id)
             if not to_user_obj:
-                self.result = {'state': 2, 'message': '目标用户信息不存在'}
                 return
 
         # 判断目标用户是否在群组中
-        try:
-            to_group_user_obj = GroupsToUser.query.filter_by(user_id=to_user_id, group_id=group_id).first()
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组成员信息查询异常'}
-            return
-
+        to_group_user_obj = self.check_group_user(to_user_id, group_id)
         if not to_group_user_obj:
-            self.result = {'state': 2, 'message': '目标用户不在群组中'}
             return
 
         # 修改备注名称
         if remark_name:
             # 判断用户是否有修改权限，如果用户ID不一致，则获取操作用户的权限
             if self.user_id != to_user_id:
-                try:
-                    group_user_obj = GroupsToUser.query.filter_by(user_id=self.user_id, group_id=group_id).first()
-                except Exception as e:
-                    current_app.logger(e)
-                    self.result = {'state': 2, 'message': '群组成员信息查询异常'}
-                    return
+                group_user_obj = self.check_group_user(self.user_id, group_id)
 
                 # 用户不为站长，并且用户不在群组中，或者用户不为群主和群管理员
                 if user_obj.type != 0 and (not group_user_obj or group_user_obj.type not in [0, 1]):
@@ -583,12 +509,7 @@ class GroupUserHandler(BaseHandler):
 
         # 修改用户权限
         else:
-            try:
-                group_user_obj = GroupsToUser.query.filter_by(user_id=self.user_id, group_id=group_id).first()
-            except Exception as e:
-                current_app.logger(e)
-                self.result = {'state': 2, 'message': '群组成员信息查询异常'}
-                return
+            group_user_obj = self.check_group_user(self.user_id, group_id)
 
             # 用户不为站长，并且用户不在群组中，或者用户不为群主，或者被修改用户为群主
             if user_obj.type != 0 and (not group_user_obj or group_user_obj.type != 0 or to_group_user_obj.type == 0):
@@ -598,12 +519,7 @@ class GroupUserHandler(BaseHandler):
             # 修改用户权限
             to_group_user_obj.type = group_type
 
-        try:
-            db.session.commit()
-        except Exception as e:
-            current_app.logger.error(e)
-            db.session.rollback()
-            self.result = {'state': 2, 'message': '修改异常'}
+        if not self.commit(content2='群组成员信息修改异常'):
             return
 
         self.result = {'state': 1, 'message': '修改成功'}
@@ -618,7 +534,7 @@ class GroupUserHandler(BaseHandler):
             self.result = {'state': 2, 'message': '缺少必要参数'}
 
         # 检查用户和群组信息是否存在
-        check_obj = self.check_group_user(group_id)
+        check_obj = self.check_group_user(self.user_id, group_id)
         if not check_obj:
             return
 
@@ -665,30 +581,3 @@ class GroupUserHandler(BaseHandler):
             return
 
         self.result = {'state': 1, 'message': '删除成功'}
-
-    def check_group(self, group_id):
-        """  检查群组是否存在 """
-        try:
-            group_obj = Group.query.get(group_id)
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组信息查询异常'}
-            return
-
-        if not group_obj:
-            self.result = {'state': 2, 'message': '群组不存在'}
-            return
-
-        return group_obj
-
-    def check_group_user(self, group_id, user_id=None):
-        """  检查成员是否在群组中 """
-        user_id = user_id or self.user_id
-        try:
-            group_user_obj = GroupsToUser.query.filter_by(group_id=group_id, user_id=user_id).first()
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = {'state': 2, 'message': '群组成员信息查询异常'}
-            return
-
-        return group_user_obj
