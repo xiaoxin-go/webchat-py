@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e54d817e24e8
+Revision ID: 79fb1c5b539b
 Revises: 
-Create Date: 2019-02-13 11:10:52.344632
+Create Date: 2019-02-21 18:29:17.062639
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e54d817e24e8'
+revision = '79fb1c5b539b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,14 +22,16 @@ def upgrade():
     sa.Column('create_time', sa.DateTime(), nullable=True),
     sa.Column('update_time', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('remark', sa.String(length=32), nullable=True),
+    sa.Column('remark', sa.String(length=1000), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('t_group',
     sa.Column('create_time', sa.DateTime(), nullable=True),
     sa.Column('update_time', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('group_name', sa.String(length=32), nullable=True),
+    sa.Column('group_name', sa.String(length=32), nullable=False),
+    sa.Column('logo', sa.String(length=32), nullable=False),
+    sa.Column('group_info', sa.TEXT(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('t_user',
@@ -37,10 +39,11 @@ def upgrade():
     sa.Column('update_time', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=32), nullable=False),
-    sa.Column('nickname', sa.String(length=32), nullable=True),
+    sa.Column('nickname', sa.String(length=32), nullable=False),
     sa.Column('password_hash', sa.String(length=128), nullable=False),
     sa.Column('logo', sa.String(length=128), nullable=True),
     sa.Column('state', sa.Integer(), nullable=True),
+    sa.Column('type', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('username')
     )

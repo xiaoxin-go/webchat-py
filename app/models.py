@@ -9,6 +9,9 @@ class BaseModel:
     create_time = db.Column(db.DateTime, default=datetime.now)  # 记录创建时间
     update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)  # 记录更新时间
 
+    def to_json(self):
+        pass
+
 
 class User(BaseModel, db.Model):
     """ 用户表 """
@@ -68,7 +71,7 @@ class Friends(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True)        # 好友表ID
     user_id = db.column(db.Integer, db.ForeignKey('t_user.id'))    # 用户ID
     friend_id = db.column(db.Integer, db.ForeignKey('t_user.id'))  # 好友ID
-    remark = db.Column(db.String(32))   # 备注名称
+    remark = db.Column(db.String(1000))         # 备注名称
 
 
 class Group(BaseModel, db.Model):
@@ -76,9 +79,10 @@ class Group(BaseModel, db.Model):
 
     __tablename__ = 't_group'
 
-    id = db.Column(db.Integer, primary_key=True)                        # 群组ID
-    group_name = db.Column(db.String(32), nullable=False)               # 群组名称
-    logo = db.Column(db.String(32), nullable=False)                     # 群头像
+    id = db.Column(db.Integer, primary_key=True)                # 群组ID
+    group_name = db.Column(db.String(32), nullable=False)       # 群组名称
+    logo = db.Column(db.String(32), nullable=False)             # 群头像
+    group_info = db.Column(db.TEXT)                     # 群公告
 
     def to_dict(self):
         group_dict = {
@@ -100,40 +104,26 @@ class GroupsToUser(BaseModel, db.Model):
     type = db.Column(db.Integer, default=2)                     # 成员类型，{0: 群主，1:管理员，2：普通成员}
 
 
-class GroupsMsgContent(BaseModel, db.Model):
-    """  群消息表 """
+class Chat(BaseModel, db.Model):
+    """  聊天列表 """
 
-    __tablename__ = 't_groupsmsgcontent'
+    __tablename__ = 't_chat'
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text)        # 消息内容
-    from_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)     # 发送者ID
-    from_name = db.Column(db.String(32), nullable=False)    # 发送者昵称
-
-    def to_dict(self):
-        msg_dict = {
-            'id': self.id,
-            'content': self.content,
-            'from_id': self.from_id,
-            'from_name': self.from_name
-        }
-        return msg_dict
+    user_id = db.Column(db.Integer)                 # 用户ID
+    name = db.Column(db.String(100))                # 聊天名称
+    type = db.Column(db.String(30))                 # 聊天类型
+    logo = db.Column(db.String(100))                # 聊天头像
+    chat_obj_id = db.Column(db.Integer)             # 聊天对象ID
 
 
-class Messages(BaseModel, db.Model):
-    """  聊天记录表 """
+class ChatMessage(BaseModel, db.Model):
+    """  好友聊天消息表 """
 
-    __tablename__ = 'messages'
+    __tablename__ = 't_chatmessage'
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text)        # 消息内容
-    from_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)   # 发送者ID
-    to_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)     # 接收者ID
-    message_type = db.Column(db.String(32), default='text')     # 消息类型
+    chat_id = db.Column(db.Integer)                 # 聊天ID
+    message = db.Column(db.Text)                    # 消息内容
+    user_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)     # 发送者
 
-    def to_dict(self):
-        msg_dict = {
-            'id': self.id,
-            'content': self.content,
-            'from_id': self.from_id,
-            'to_id': self.to_id
-        }
-        return msg_dict
+
+

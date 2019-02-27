@@ -2,7 +2,7 @@ import random
 from flask import request, current_app, session
 from sqlalchemy.exc import IntegrityError
 from app import db
-from app.models import User, Group, GroupsToUser
+from app.models import User, Group, GroupsToUser, Friends
 from app.constants import DEFAULT_IMAGES
 
 
@@ -79,6 +79,17 @@ class BaseHandler:
 
         return group_user_obj
 
+    def check_friend(self, user_id, friend_id):
+        """  检查好友信息是否存在 """
+        try:
+            friend_obj = Friends.qeury.filter_by(user_id=user_id, friend_id=friend_id).first()
+        except Exception as e:
+            current_app.logger.error(e)
+            self.result = {'state': 2, 'message': '好友信息获取异常'}
+            return
+
+        return friend_obj
+
     def query_(self, obj, sql, content):
         """  异常查询 """
         try:
@@ -109,6 +120,7 @@ class BaseHandler:
 
 class UserHandler(BaseHandler):
     """ 用户操作 """
+
     def get_(self):
         """  查询用户 """
         username = self.request_data.get('username')
@@ -128,7 +140,7 @@ class UserHandler(BaseHandler):
             return
 
         try:
-            user_query = User.query.filter(User.username==username) if username else User.query.filter()
+            user_query = User.query.filter(User.username == username) if username else User.query.filter()
         except Exception as e:
             current_app.logger.error(e)
             self.result = {'state': 2, 'message': '用户查询异常'}
@@ -154,7 +166,7 @@ class UserHandler(BaseHandler):
         user_obj = User(username=username, nickname=nickname)
 
         # 设置密码
-        user_obj.password = password        # 已自动加密
+        user_obj.password = password  # 已自动加密
         db.session.add(user_obj)
 
         if not self.commit('用户已存在', '用户添加异常'):
@@ -274,8 +286,9 @@ class GroupHandler(BaseHandler):
         if not self.commit('群组已存在', '群组添加异常'):
             return
 
+        group_info = self.request_data.get('info')  # 获取群公告信息
         # 添加群组
-        group_to_user = GroupsToUser(group_id=group_obj.id, user_id=self.user_id, type=0)
+        group_to_user = GroupsToUser(group_id=group_obj.id, user_id=self.user_id, type=0, group_info=group_info)
         db.session.add(group_to_user)
         if not self.commit(content2='群组添加异常'):
             return
@@ -287,9 +300,11 @@ class GroupHandler(BaseHandler):
         group_id = self.request_data.get('group_id')
         group_logo = self.request_data.get('group_logo')
         group_name = self.request_data.get('group_name')
+        group_info = self.request_data.get('group_info')
 
         # 用户ID和群组ID必须存在，并且群组名和群组头像至少存在一项
-        if not all([group_id, self.user_id]) or (all([group_id, self.user_id]) and (not group_logo and not group_name)):
+        if not all([group_id, self.user_id]) or (
+                all([group_id, self.user_id]) and (not group_logo and not group_name and not group_info)):
             self.result = {'state': 2, 'message': '缺失必要参数'}
             return
 
@@ -316,6 +331,8 @@ class GroupHandler(BaseHandler):
             group_obj.group_name = group_name
         if group_logo:
             group_obj.logo = group_logo
+        if group_info:
+            group_obj.info = group_info
 
         # 提交修改
         if not self.commit('群组名已存在', '群组修改异常'):
@@ -579,5 +596,109 @@ class GroupUserHandler(BaseHandler):
             db.session.rollback()
             self.result = {'state': 2, 'message': '删除异常'}
             return
-
         self.result = {'state': 1, 'message': '删除成功'}
+
+
+class FriendHandler(BaseHandler):
+    """  好友管理 """
+
+    def get_(self):
+        """  获取好友列表 """
+        # 判断用户是否存在
+        user_obj = self.check_user()
+        if not user_obj:
+            return
+
+        # 获取好友信息
+        friends_query = self.query_(Friends, {'user_id', self.user_id}, '好友信息查询异常')
+        if not friends_query:
+            return
+        friend_list = [friend.id for friend in friends_query]
+        data_list = [User.query.get(user_id).to_dict for user_id in friend_list]
+        self.result = {'state': 1, 'data_list': data_list, 'total': friends_query.count()}
+
+    def add_(self):
+        """  添加好友，只有副站长和管理员拥有加人权限，强制添加，不需要同意 """
+
+        # 判断用户是否存在，获取用户
+        user_obj = self.check_user()
+        if not user_obj:
+            return
+
+        friend_id = self.request_data.get('friend_id')
+        if not friend_id:
+            self.result = {'state': 2, 'message': '缺少必要参数'}
+            return
+        # 判断被添加用户是否存在
+        to_user_obj = self.check_user(friend_id)
+        if not to_user_obj:
+            return
+
+        # 获取群ID
+        group_id = self.request_data.get('group_id')
+        group_user_obj = self.check_group_user(self.user_id, group_id)
+
+        if user_obj.type in [0, 1] or (group_user_obj and group_user_obj.type in [0, 1]):
+            self.add_handler(self.user_id, friend_id)
+        else:
+            self.result = {'state': 2, 'message': '无添加权限'}
+
+    def put_(self):
+        """  修改好友信息，备注信息 """
+        friend_id = self.request_data.get('friend_id')
+        remark = self.request_data.get('remark')
+        if not all([friend_id, remark]):
+            self.result = {'state': 2, 'message': '缺少必要参数'}
+            return
+
+        # 检查用户是否存在
+        user_obj = self.check_user()
+        if not user_obj:
+            return
+
+        friend_obj = self.check_friend(self.user_id, friend_id)
+        if not friend_id:
+            return
+
+        friend_obj.remark = remark
+        self.commit()
+        self.result = {'state': 1, 'message': '好友备注修改成功'}
+
+    def delete_(self):
+        """  删除好友 """
+        friend_id = self.request_data.get('friend_id')
+        if not friend_id:
+            self.result = {'state': 2, 'message': '缺少必要参数'}
+            return
+
+        if not self.check_user():
+            return
+
+        friend_obj = self.check_friend(self.user_id, friend_id)
+        if not friend_obj:
+            return
+
+        friend_obj.delete()
+        self.commit()
+        self.result = {'state': 2, 'message': '好友删除成功'}
+
+    def add_handler(self, user_id, to_user_id):
+        """   添加好友方法 """
+        friend_obj = Friends(user_id=user_id, friend_id=to_user_id)
+        friend_obj_to = Friends(user_id=to_user_id, friend_id=user_id)
+        db.session.add(friend_obj)
+        db.session.add(friend_obj_to)
+        self.commit()
+
+
+class ChatHandler(BaseHandler):
+    def get_(self):
+        pass
+
+    def delete_(self):
+        pass
+
+
+class ChatMessageHandler(BaseHandler):
+    def get_(self):
+        pass
