@@ -3,6 +3,8 @@ from config import config_map
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from flask_wtf import CSRFProtect
+from flask_socketio import SocketIO
+from flask_cors import CORS
 
 import redis
 import logging
@@ -10,6 +12,7 @@ from logging.handlers import RotatingFileHandler
 
 # 数据库
 db = SQLAlchemy()
+socketio = SocketIO()
 
 # 创建redis连接对象
 redis_store = None
@@ -44,6 +47,7 @@ def create_app(config_name):
 
     # 使用app初始化db
     db.init_app(app)
+    socketio.init_app(app)
 
     # 初始化redis工具
     global redis_store
@@ -54,6 +58,9 @@ def create_app(config_name):
 
     # 为flask补充csrf防护
     CSRFProtect(app)
+
+    # 允许跨域访问
+    CORS(app, supports_credentials=True)
 
     # 为flask添加自定义的转换器
     #app.url_map.converters['re'] = ReConverter

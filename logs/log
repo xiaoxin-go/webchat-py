@@ -14,3 +14,671 @@ INFO _internal.py:88  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ERROR __init__.py:97 Error: Path doesn't exist: 'migrations'.  Please use the 'init' command to create a new scripts folder.
 ERROR __init__.py:97 Error: Path doesn't exist: 'migrations'.  Please use the 'init' command to create a new scripts folder.
 ERROR __init__.py:97 Error: Path doesn't exist: 'migrations'.  Please use the 'init' command to create a new scripts folder.
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO _internal.py:88  * Detected change in 'F:\\python\\project\\webchat\\manage.py', reloading
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO _internal.py:88  * Detected change in 'F:\\python\\project\\webchat\\app\\api_1_0\\views.py', reloading
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO _internal.py:88  * Detected change in 'F:\\python\\project\\webchat\\app\\api_1_0\\views.py', reloading
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO server.py:139 Server initialized for threading.
+INFO server.py:139 Server initialized for threading.
+INFO server.py:139 Server initialized for threading.
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:05:47] "GET / HTTP/1.1" 404 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:05:47] "GET /favicon.ico HTTP/1.1" 404 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:21] "GET /api/v1.0 HTTP/1.1" 301 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:21] "GET /api/v1.0/ HTTP/1.1" 200 -
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet OPEN data {'sid': '690555dc208e4ffb8c9ea736b229b8d5', 'upgrades': [], 'pingTimeout': 60000, 'pingInterval': 25000}
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet MESSAGE data 0
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:22] "GET /socket.io/?EIO=3&transport=polling&t=Maz0hbx HTTP/1.1" 200 -
+INFO socket.py:52 690555dc208e4ffb8c9ea736b229b8d5: Received packet MESSAGE data 0/websocket/user_refresh,
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet MESSAGE data 0/websocket/user_refresh
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:22] "POST /socket.io/?EIO=3&transport=polling&t=Maz0hcB&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:22] "GET /socket.io/?EIO=3&transport=polling&t=Maz0hcB.0&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO socket.py:52 690555dc208e4ffb8c9ea736b229b8d5: Received packet MESSAGE data 2/websocket/user_refresh,["connect_event",{"data":"我已连接上服务端！"}]
+INFO server.py:521 received event "connect_event" from 690555dc208e4ffb8c9ea736b229b8d5 [/websocket/user_refresh]
+INFO server.py:226 emitting event "server_response" to 690555dc208e4ffb8c9ea736b229b8d5 [/websocket/user_refresh]
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet MESSAGE data 2/websocket/user_refresh,["server_response",{"data":"\u6211\u5df2\u8fde\u63a5\u4e0a\u670d\u52a1\u7aef\uff01"}]
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:22] "GET /socket.io/?EIO=3&transport=polling&t=Maz0hcT&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:22] "POST /socket.io/?EIO=3&transport=polling&t=Maz0hcS&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO socket.py:52 690555dc208e4ffb8c9ea736b229b8d5: Received packet PING data None
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:47] "GET /socket.io/?EIO=3&transport=polling&t=Maz0hch&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:06:47] "POST /socket.io/?EIO=3&transport=polling&t=Maz0nis&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO socket.py:52 690555dc208e4ffb8c9ea736b229b8d5: Received packet PING data None
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:07:12] "GET /socket.io/?EIO=3&transport=polling&t=Maz0nj0&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:07:12] "POST /socket.io/?EIO=3&transport=polling&t=Maz0tpf&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO socket.py:52 690555dc208e4ffb8c9ea736b229b8d5: Received packet PING data None
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:07:37] "GET /socket.io/?EIO=3&transport=polling&t=Maz0tpp&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:07:37] "POST /socket.io/?EIO=3&transport=polling&t=Maz0zwS&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO socket.py:52 690555dc208e4ffb8c9ea736b229b8d5: Received packet PING data None
+INFO socket.py:94 690555dc208e4ffb8c9ea736b229b8d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:02] "GET /socket.io/?EIO=3&transport=polling&t=Maz0zwe&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:02] "POST /socket.io/?EIO=3&transport=polling&t=Maz141I&sid=690555dc208e4ffb8c9ea736b229b8d5 HTTP/1.1" 200 -
+INFO _internal.py:88  * Detected change in 'F:\\python\\project\\webchat\\app\\api_1_0\\views.py', reloading
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO socket.py:94 8076bfe209da4555bee23a65a445ba83: Sending packet OPEN data {'sid': '8076bfe209da4555bee23a65a445ba83', 'upgrades': [], 'pingTimeout': 60000, 'pingInterval': 25000}
+INFO socket.py:94 8076bfe209da4555bee23a65a445ba83: Sending packet MESSAGE data 0
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:12] "GET /socket.io/?EIO=3&transport=polling&t=Maz16Iy HTTP/1.1" 200 -
+INFO socket.py:52 8076bfe209da4555bee23a65a445ba83: Received packet MESSAGE data 0/websocket/user_refresh,
+INFO socket.py:94 8076bfe209da4555bee23a65a445ba83: Sending packet MESSAGE data 0/websocket/user_refresh
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:12] "POST /socket.io/?EIO=3&transport=polling&t=Maz16U-&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:12] "GET /socket.io/?EIO=3&transport=polling&t=Maz16U-.0&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO socket.py:52 8076bfe209da4555bee23a65a445ba83: Received packet MESSAGE data 2/websocket/user_refresh,["connect_event",{"data":"我已连接上服务端！"}]
+INFO server.py:521 received event "connect_event" from 8076bfe209da4555bee23a65a445ba83 [/websocket/user_refresh]
+INFO server.py:226 emitting event "server_response" to 8076bfe209da4555bee23a65a445ba83 [/websocket/user_refresh]
+INFO socket.py:94 8076bfe209da4555bee23a65a445ba83: Sending packet MESSAGE data 2/websocket/user_refresh,["server_response",{"data":"\u6211\u5df2\u8fde\u63a5\u4e0a\u670d\u52a1\u7aef\uff01"}]
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:12] "GET /socket.io/?EIO=3&transport=polling&t=Maz16VF&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:12] "POST /socket.io/?EIO=3&transport=polling&t=Maz16VE&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO socket.py:52 8076bfe209da4555bee23a65a445ba83: Received packet PING data None
+INFO socket.py:94 8076bfe209da4555bee23a65a445ba83: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:37] "GET /socket.io/?EIO=3&transport=polling&t=Maz16VY&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:08:37] "POST /socket.io/?EIO=3&transport=polling&t=Maz1Cbe&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO socket.py:52 8076bfe209da4555bee23a65a445ba83: Received packet PING data None
+INFO socket.py:94 8076bfe209da4555bee23a65a445ba83: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:02] "GET /socket.io/?EIO=3&transport=polling&t=Maz1Cb-&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:02] "POST /socket.io/?EIO=3&transport=polling&t=Maz1Iie&sid=8076bfe209da4555bee23a65a445ba83 HTTP/1.1" 200 -
+INFO _internal.py:88  * Detected change in 'F:\\python\\project\\webchat\\app\\api_1_0\\views.py', reloading
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet OPEN data {'sid': '47ae0a674f944e9c8c6eb06ed83ad280', 'upgrades': [], 'pingTimeout': 60000, 'pingInterval': 25000}
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet MESSAGE data 0
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:08] "GET /socket.io/?EIO=3&transport=polling&t=Maz1K4k HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet MESSAGE data 0/websocket/user_refresh,
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet MESSAGE data 0/websocket/user_refresh
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:08] "GET /socket.io/?EIO=3&transport=polling&t=Maz1K4u.0&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:08] "POST /socket.io/?EIO=3&transport=polling&t=Maz1K4u&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet MESSAGE data 2/websocket/user_refresh,["connect_event",{"data":"我已连接上服务端！"}]
+INFO server.py:521 received event "connect_event" from 47ae0a674f944e9c8c6eb06ed83ad280 [/websocket/user_refresh]
+INFO server.py:226 emitting event "server_response" to 47ae0a674f944e9c8c6eb06ed83ad280 [/websocket/user_refresh]
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet MESSAGE data 2/websocket/user_refresh,["server_response",{"data":"\u6211\u5df2\u8fde\u63a5\u4e0a\u670d\u52a1\u7aef\uff01"}]
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:08] "GET /socket.io/?EIO=3&transport=polling&t=Maz1K55&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:08] "POST /socket.io/?EIO=3&transport=polling&t=Maz1K54&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:33] "GET /socket.io/?EIO=3&transport=polling&t=Maz1K5c&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:33] "POST /socket.io/?EIO=3&transport=polling&t=Maz1QBY&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:58] "GET /socket.io/?EIO=3&transport=polling&t=Maz1QBn&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:09:58] "POST /socket.io/?EIO=3&transport=polling&t=Maz1WIR&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:10:23] "GET /socket.io/?EIO=3&transport=polling&t=Maz1WIb&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:10:23] "POST /socket.io/?EIO=3&transport=polling&t=Maz1cPE&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:10:48] "GET /socket.io/?EIO=3&transport=polling&t=Maz1cPU&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:10:48] "POST /socket.io/?EIO=3&transport=polling&t=Maz1iW7&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:11:13] "GET /socket.io/?EIO=3&transport=polling&t=Maz1iWH&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:11:13] "POST /socket.io/?EIO=3&transport=polling&t=Maz1ocx&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:11:38] "GET /socket.io/?EIO=3&transport=polling&t=Maz1odF&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:11:38] "POST /socket.io/?EIO=3&transport=polling&t=Maz1ujv&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:12:03] "GET /socket.io/?EIO=3&transport=polling&t=Maz1uk4&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:12:03] "POST /socket.io/?EIO=3&transport=polling&t=Maz1-qj&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:12:28] "GET /socket.io/?EIO=3&transport=polling&t=Maz1-qt&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:12:28] "POST /socket.io/?EIO=3&transport=polling&t=Maz24xY&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:12:53] "GET /socket.io/?EIO=3&transport=polling&t=Maz24xm&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:12:53] "POST /socket.io/?EIO=3&transport=polling&t=Maz2B2P&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:13:18] "GET /socket.io/?EIO=3&transport=polling&t=Maz2B2b&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:13:18] "POST /socket.io/?EIO=3&transport=polling&t=Maz2H9F&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:13:43] "GET /socket.io/?EIO=3&transport=polling&t=Maz2H9d&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:13:43] "POST /socket.io/?EIO=3&transport=polling&t=Maz2NGI&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:14:08] "GET /socket.io/?EIO=3&transport=polling&t=Maz2NGW&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:14:08] "POST /socket.io/?EIO=3&transport=polling&t=Maz2TNA&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:14:33] "GET /socket.io/?EIO=3&transport=polling&t=Maz2TNM&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:14:33] "POST /socket.io/?EIO=3&transport=polling&t=Maz2ZT-&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:14:58] "GET /socket.io/?EIO=3&transport=polling&t=Maz2ZUA&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:14:58] "POST /socket.io/?EIO=3&transport=polling&t=Maz2faq&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:15:23] "GET /socket.io/?EIO=3&transport=polling&t=Maz2fb5&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:15:23] "POST /socket.io/?EIO=3&transport=polling&t=Maz2lhl&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:15:48] "GET /socket.io/?EIO=3&transport=polling&t=Maz2lhz&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:15:48] "POST /socket.io/?EIO=3&transport=polling&t=Maz2roc&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:16:13] "GET /socket.io/?EIO=3&transport=polling&t=Maz2rom&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:16:13] "POST /socket.io/?EIO=3&transport=polling&t=Maz2xvR&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:16:38] "GET /socket.io/?EIO=3&transport=polling&t=Maz2xvc&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:16:38] "POST /socket.io/?EIO=3&transport=polling&t=Maz320F&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:03] "GET /socket.io/?EIO=3&transport=polling&t=Maz320S&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:03] "POST /socket.io/?EIO=3&transport=polling&t=Maz3876&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO socket.py:52 47ae0a674f944e9c8c6eb06ed83ad280: Received packet PING data None
+INFO socket.py:94 47ae0a674f944e9c8c6eb06ed83ad280: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:28] "GET /socket.io/?EIO=3&transport=polling&t=Maz387L&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:28] "POST /socket.io/?EIO=3&transport=polling&t=Maz3ED_&sid=47ae0a674f944e9c8c6eb06ed83ad280 HTTP/1.1" 200 -
+INFO _internal.py:88  * Detected change in 'F:\\python\\project\\webchat\\app\\api_1_0\\views.py', reloading
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet OPEN data {'sid': 'b229e16b87254b82ae226d7a5d6f2b18', 'upgrades': [], 'pingTimeout': 60000, 'pingInterval': 25000}
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet MESSAGE data 0
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:57] "GET /socket.io/?EIO=3&transport=polling&t=Maz3LMN HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet MESSAGE data 0/websocket/user_refresh,
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet MESSAGE data 0/websocket/user_refresh
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:57] "POST /socket.io/?EIO=3&transport=polling&t=Maz3LMZ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:57] "GET /socket.io/?EIO=3&transport=polling&t=Maz3LMZ.0&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet MESSAGE data 2/websocket/user_refresh,["connect_event",{"data":"我已连接上服务端！"}]
+INFO server.py:521 received event "connect_event" from b229e16b87254b82ae226d7a5d6f2b18 [/websocket/user_refresh]
+INFO server.py:226 emitting event "server_response" to b229e16b87254b82ae226d7a5d6f2b18 [/websocket/user_refresh]
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet MESSAGE data 2/websocket/user_refresh,["server_response",{"data":"\u6211\u5df2\u8fde\u63a5\u4e0a\u670d\u52a1\u7aef\uff01"}]
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:57] "GET /socket.io/?EIO=3&transport=polling&t=Maz3LMp.0&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:17:57] "POST /socket.io/?EIO=3&transport=polling&t=Maz3LMp&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:18:22] "GET /socket.io/?EIO=3&transport=polling&t=Maz3LNE&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:18:22] "POST /socket.io/?EIO=3&transport=polling&t=Maz3RTE&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:18:47] "GET /socket.io/?EIO=3&transport=polling&t=Maz3RTX&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:18:47] "POST /socket.io/?EIO=3&transport=polling&t=Maz3XaB&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:19:12] "GET /socket.io/?EIO=3&transport=polling&t=Maz3XaM&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:19:12] "POST /socket.io/?EIO=3&transport=polling&t=Maz3dg_&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:19:37] "GET /socket.io/?EIO=3&transport=polling&t=Maz3dhB&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:19:37] "POST /socket.io/?EIO=3&transport=polling&t=Maz3jns&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:20:02] "GET /socket.io/?EIO=3&transport=polling&t=Maz3jo0&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:20:02] "POST /socket.io/?EIO=3&transport=polling&t=Maz3pug&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:20:28] "GET /socket.io/?EIO=3&transport=polling&t=Maz3puq&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:20:28] "POST /socket.io/?EIO=3&transport=polling&t=Maz3v_T&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:20:53] "GET /socket.io/?EIO=3&transport=polling&t=Maz3v_d&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:20:53] "POST /socket.io/?EIO=3&transport=polling&t=Maz406I&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:21:18] "GET /socket.io/?EIO=3&transport=polling&t=Maz406y&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:21:18] "POST /socket.io/?EIO=3&transport=polling&t=Maz46Db&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:21:43] "GET /socket.io/?EIO=3&transport=polling&t=Maz46Dk&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:21:43] "POST /socket.io/?EIO=3&transport=polling&t=Maz4CKN&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:22:08] "GET /socket.io/?EIO=3&transport=polling&t=Maz4CKo&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:22:08] "POST /socket.io/?EIO=3&transport=polling&t=Maz4IRS&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:22:33] "GET /socket.io/?EIO=3&transport=polling&t=Maz4IRd&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:22:33] "POST /socket.io/?EIO=3&transport=polling&t=Maz4OYQ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:22:58] "GET /socket.io/?EIO=3&transport=polling&t=Maz4OY-&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:22:58] "POST /socket.io/?EIO=3&transport=polling&t=Maz4Ufm&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:23:23] "GET /socket.io/?EIO=3&transport=polling&t=Maz4Ugi&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:23:23] "POST /socket.io/?EIO=3&transport=polling&t=Maz4anM&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:23:48] "GET /socket.io/?EIO=3&transport=polling&t=Maz4anX&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:23:48] "POST /socket.io/?EIO=3&transport=polling&t=Maz4guB&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:24:13] "GET /socket.io/?EIO=3&transport=polling&t=Maz4guL&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:24:13] "POST /socket.io/?EIO=3&transport=polling&t=Maz4m-z&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:24:38] "GET /socket.io/?EIO=3&transport=polling&t=Maz4m_A&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:24:38] "POST /socket.io/?EIO=3&transport=polling&t=Maz4t5r&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:25:03] "GET /socket.io/?EIO=3&transport=polling&t=Maz4t5_&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:25:03] "POST /socket.io/?EIO=3&transport=polling&t=Maz4zCe&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:25:28] "GET /socket.io/?EIO=3&transport=polling&t=Maz4zCo&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:25:28] "POST /socket.io/?EIO=3&transport=polling&t=Maz53JS&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:25:53] "GET /socket.io/?EIO=3&transport=polling&t=Maz53Je&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:25:53] "POST /socket.io/?EIO=3&transport=polling&t=Maz59QH&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:26:18] "GET /socket.io/?EIO=3&transport=polling&t=Maz59QS&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:26:18] "POST /socket.io/?EIO=3&transport=polling&t=Maz5FX6&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:26:43] "GET /socket.io/?EIO=3&transport=polling&t=Maz5FXH&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:26:43] "POST /socket.io/?EIO=3&transport=polling&t=Maz5Ldw&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:27:08] "GET /socket.io/?EIO=3&transport=polling&t=Maz5LeA&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:27:08] "POST /socket.io/?EIO=3&transport=polling&t=Maz5Rkr&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:27:33] "GET /socket.io/?EIO=3&transport=polling&t=Maz5Rl3&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:27:33] "POST /socket.io/?EIO=3&transport=polling&t=Maz5Xrk&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:27:58] "GET /socket.io/?EIO=3&transport=polling&t=Maz5Xs6&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:27:58] "POST /socket.io/?EIO=3&transport=polling&t=Maz5dyn&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:28:23] "GET /socket.io/?EIO=3&transport=polling&t=Maz5e2K&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:28:23] "POST /socket.io/?EIO=3&transport=polling&t=Maz5k8_&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:28:48] "GET /socket.io/?EIO=3&transport=polling&t=Maz5k9G&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:28:48] "POST /socket.io/?EIO=3&transport=polling&t=Maz5qFx&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:29:13] "GET /socket.io/?EIO=3&transport=polling&t=Maz5qG9&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:29:13] "POST /socket.io/?EIO=3&transport=polling&t=Maz5wMo&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:29:38] "GET /socket.io/?EIO=3&transport=polling&t=Maz5wMy&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:29:38] "POST /socket.io/?EIO=3&transport=polling&t=Maz60Tb&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:30:03] "GET /socket.io/?EIO=3&transport=polling&t=Maz60Tm&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:30:03] "POST /socket.io/?EIO=3&transport=polling&t=Maz66aP&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:30:28] "GET /socket.io/?EIO=3&transport=polling&t=Maz66aa&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:30:28] "POST /socket.io/?EIO=3&transport=polling&t=Maz6ChD&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:30:53] "GET /socket.io/?EIO=3&transport=polling&t=Maz6Cha&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:30:53] "POST /socket.io/?EIO=3&transport=polling&t=Maz6IoE&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:31:18] "GET /socket.io/?EIO=3&transport=polling&t=Maz6IoQ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:31:18] "POST /socket.io/?EIO=3&transport=polling&t=Maz6Ov4&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:31:43] "GET /socket.io/?EIO=3&transport=polling&t=Maz6OvG&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:31:43] "POST /socket.io/?EIO=3&transport=polling&t=Maz6U_w&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:32:08] "GET /socket.io/?EIO=3&transport=polling&t=Maz6V05&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:32:08] "POST /socket.io/?EIO=3&transport=polling&t=Maz6b6m&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:32:33] "GET /socket.io/?EIO=3&transport=polling&t=Maz6b6v&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:32:33] "POST /socket.io/?EIO=3&transport=polling&t=Maz6hDZ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:32:58] "GET /socket.io/?EIO=3&transport=polling&t=Maz6hDl&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:32:58] "POST /socket.io/?EIO=3&transport=polling&t=Maz6nKO&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:33:23] "GET /socket.io/?EIO=3&transport=polling&t=Maz6nKa&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:33:23] "POST /socket.io/?EIO=3&transport=polling&t=Maz6tRD&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:33:48] "GET /socket.io/?EIO=3&transport=polling&t=Maz6tRN&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:33:48] "POST /socket.io/?EIO=3&transport=polling&t=Maz6zY0&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:34:13] "GET /socket.io/?EIO=3&transport=polling&t=Maz6zYO&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:34:13] "POST /socket.io/?EIO=3&transport=polling&t=Maz73f2&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:34:38] "GET /socket.io/?EIO=3&transport=polling&t=Maz73fG&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:34:38] "POST /socket.io/?EIO=3&transport=polling&t=Maz79lw&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:35:03] "GET /socket.io/?EIO=3&transport=polling&t=Maz79m4&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:35:04] "POST /socket.io/?EIO=3&transport=polling&t=Maz7Fsl&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:35:29] "GET /socket.io/?EIO=3&transport=polling&t=Maz7Ft8&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:35:29] "POST /socket.io/?EIO=3&transport=polling&t=Maz7Lzn&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:35:54] "GET /socket.io/?EIO=3&transport=polling&t=Maz7Lzy&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:35:54] "POST /socket.io/?EIO=3&transport=polling&t=Maz7S4c&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:36:19] "GET /socket.io/?EIO=3&transport=polling&t=Maz7S4o&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:36:19] "POST /socket.io/?EIO=3&transport=polling&t=Maz7YBR&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:36:44] "GET /socket.io/?EIO=3&transport=polling&t=Maz7YBZ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:36:44] "POST /socket.io/?EIO=3&transport=polling&t=Maz7eID&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:37:09] "GET /socket.io/?EIO=3&transport=polling&t=Maz7eIN&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:37:09] "POST /socket.io/?EIO=3&transport=polling&t=Maz7kP0&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:37:34] "GET /socket.io/?EIO=3&transport=polling&t=Maz7kPI&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:37:34] "POST /socket.io/?EIO=3&transport=polling&t=Maz7qVy&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:37:59] "GET /socket.io/?EIO=3&transport=polling&t=Maz7qWC&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:37:59] "POST /socket.io/?EIO=3&transport=polling&t=Maz7wcq&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:38:24] "GET /socket.io/?EIO=3&transport=polling&t=Maz7wc_&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:38:24] "POST /socket.io/?EIO=3&transport=polling&t=Maz80jf&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:38:49] "GET /socket.io/?EIO=3&transport=polling&t=Maz80jq&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:38:49] "POST /socket.io/?EIO=3&transport=polling&t=Maz86qU&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:39:14] "GET /socket.io/?EIO=3&transport=polling&t=Maz86qg&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:39:14] "POST /socket.io/?EIO=3&transport=polling&t=Maz8CxK&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:39:39] "GET /socket.io/?EIO=3&transport=polling&t=Maz8CxU&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:39:39] "POST /socket.io/?EIO=3&transport=polling&t=Maz8J28&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:40:04] "GET /socket.io/?EIO=3&transport=polling&t=Maz8J2H&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:40:04] "POST /socket.io/?EIO=3&transport=polling&t=Maz8P8w&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:40:29] "GET /socket.io/?EIO=3&transport=polling&t=Maz8P94&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:40:29] "POST /socket.io/?EIO=3&transport=polling&t=Maz8VFk&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:40:54] "GET /socket.io/?EIO=3&transport=polling&t=Maz8VFu&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:40:54] "POST /socket.io/?EIO=3&transport=polling&t=Maz8bMW&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:41:19] "GET /socket.io/?EIO=3&transport=polling&t=Maz8bMk&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:41:19] "POST /socket.io/?EIO=3&transport=polling&t=Maz8hTO&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:41:44] "GET /socket.io/?EIO=3&transport=polling&t=Maz8hTZ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:41:44] "POST /socket.io/?EIO=3&transport=polling&t=Maz8naE&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:42:09] "GET /socket.io/?EIO=3&transport=polling&t=Maz8naW&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:42:09] "POST /socket.io/?EIO=3&transport=polling&t=Maz8thA&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:42:34] "GET /socket.io/?EIO=3&transport=polling&t=Maz8thL&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:42:34] "POST /socket.io/?EIO=3&transport=polling&t=Maz8znz&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:42:59] "GET /socket.io/?EIO=3&transport=polling&t=Maz8zo6&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:42:59] "POST /socket.io/?EIO=3&transport=polling&t=Maz93um&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:43:24] "GET /socket.io/?EIO=3&transport=polling&t=Maz93uy&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:43:24] "POST /socket.io/?EIO=3&transport=polling&t=Maz99_b&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:43:49] "GET /socket.io/?EIO=3&transport=polling&t=Maz99_m&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:43:49] "POST /socket.io/?EIO=3&transport=polling&t=Maz9G6O&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:44:14] "GET /socket.io/?EIO=3&transport=polling&t=Maz9G6Z&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:44:14] "POST /socket.io/?EIO=3&transport=polling&t=Maz9MDC&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:44:39] "GET /socket.io/?EIO=3&transport=polling&t=Maz9MDM&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:44:39] "POST /socket.io/?EIO=3&transport=polling&t=Maz9SJ_&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:45:04] "GET /socket.io/?EIO=3&transport=polling&t=Maz9SKA&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:45:04] "POST /socket.io/?EIO=3&transport=polling&t=Maz9YQo&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:45:29] "GET /socket.io/?EIO=3&transport=polling&t=Maz9YQz&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:45:29] "POST /socket.io/?EIO=3&transport=polling&t=Maz9eXc&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:45:54] "GET /socket.io/?EIO=3&transport=polling&t=Maz9eXl&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:45:54] "POST /socket.io/?EIO=3&transport=polling&t=Maz9keO&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:46:19] "GET /socket.io/?EIO=3&transport=polling&t=Maz9keZ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:46:19] "POST /socket.io/?EIO=3&transport=polling&t=Maz9qlB&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:46:44] "GET /socket.io/?EIO=3&transport=polling&t=Maz9qlM&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:46:44] "POST /socket.io/?EIO=3&transport=polling&t=Maz9wr_&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:47:09] "GET /socket.io/?EIO=3&transport=polling&t=Maz9ws8&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:47:09] "POST /socket.io/?EIO=3&transport=polling&t=MazA0yo&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:47:34] "GET /socket.io/?EIO=3&transport=polling&t=MazA0z2&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:47:34] "POST /socket.io/?EIO=3&transport=polling&t=MazA73i&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:47:59] "GET /socket.io/?EIO=3&transport=polling&t=MazA73r&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:47:59] "POST /socket.io/?EIO=3&transport=polling&t=MazADAW&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:48:24] "GET /socket.io/?EIO=3&transport=polling&t=MazADAh&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:48:24] "POST /socket.io/?EIO=3&transport=polling&t=MazAJHJ&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:48:49] "GET /socket.io/?EIO=3&transport=polling&t=MazAJHa&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:48:49] "POST /socket.io/?EIO=3&transport=polling&t=MazAPOF&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:49:14] "GET /socket.io/?EIO=3&transport=polling&t=MazAPOS&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:49:14] "POST /socket.io/?EIO=3&transport=polling&t=MazAVV6&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:49:39] "GET /socket.io/?EIO=3&transport=polling&t=MazAVVG&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:49:39] "POST /socket.io/?EIO=3&transport=polling&t=MazAbbx&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:50:04] "GET /socket.io/?EIO=3&transport=polling&t=MazAbc5&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:50:04] "POST /socket.io/?EIO=3&transport=polling&t=MazAhim&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:50:29] "GET /socket.io/?EIO=3&transport=polling&t=MazAhix&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:50:29] "POST /socket.io/?EIO=3&transport=polling&t=MazAnpc&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:50:54] "GET /socket.io/?EIO=3&transport=polling&t=MazAnpm&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:50:54] "POST /socket.io/?EIO=3&transport=polling&t=MazAtwR&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:51:19] "GET /socket.io/?EIO=3&transport=polling&t=MazAtwr&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:51:19] "POST /socket.io/?EIO=3&transport=polling&t=MazA-1T&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:51:44] "GET /socket.io/?EIO=3&transport=polling&t=MazA-1d&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:51:44] "POST /socket.io/?EIO=3&transport=polling&t=MazB48G&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO socket.py:52 b229e16b87254b82ae226d7a5d6f2b18: Received packet PING data None
+INFO socket.py:94 b229e16b87254b82ae226d7a5d6f2b18: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:09] "GET /socket.io/?EIO=3&transport=polling&t=MazB48Q&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:09] "POST /socket.io/?EIO=3&transport=polling&t=MazBAF4&sid=b229e16b87254b82ae226d7a5d6f2b18 HTTP/1.1" 200 -
+INFO _internal.py:88  * Detected change in 'F:\\python\\project\\webchat\\app\\api_1_0\\views.py', reloading
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO socket.py:94 2095e3a935ef4c55b0eca1884737df9d: Sending packet OPEN data {'sid': '2095e3a935ef4c55b0eca1884737df9d', 'upgrades': [], 'pingTimeout': 60000, 'pingInterval': 25000}
+INFO socket.py:94 2095e3a935ef4c55b0eca1884737df9d: Sending packet MESSAGE data 0
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:14] "GET /socket.io/?EIO=3&transport=polling&t=MazBBLo HTTP/1.1" 200 -
+INFO socket.py:52 2095e3a935ef4c55b0eca1884737df9d: Received packet MESSAGE data 0/websocket/user_refresh,
+INFO socket.py:94 2095e3a935ef4c55b0eca1884737df9d: Sending packet MESSAGE data 0/websocket/user_refresh
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:14] "POST /socket.io/?EIO=3&transport=polling&t=MazBBL_&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:14] "GET /socket.io/?EIO=3&transport=polling&t=MazBBM0&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO socket.py:52 2095e3a935ef4c55b0eca1884737df9d: Received packet MESSAGE data 2/websocket/user_refresh,["connect_event",{"data":"我已连接上服务端！"}]
+INFO server.py:521 received event "connect_event" from 2095e3a935ef4c55b0eca1884737df9d [/websocket/user_refresh]
+INFO server.py:226 emitting event "server_response" to 2095e3a935ef4c55b0eca1884737df9d [/websocket/user_refresh]
+INFO socket.py:94 2095e3a935ef4c55b0eca1884737df9d: Sending packet MESSAGE data 2/websocket/user_refresh,["server_response",{"data":"\u6211\u5df2\u8fde\u63a5\u4e0a\u670d\u52a1\u7aef\uff01"}]
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:14] "GET /socket.io/?EIO=3&transport=polling&t=MazBBMM&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:14] "POST /socket.io/?EIO=3&transport=polling&t=MazBBML&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO socket.py:52 2095e3a935ef4c55b0eca1884737df9d: Received packet PING data None
+INFO socket.py:94 2095e3a935ef4c55b0eca1884737df9d: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:39] "GET /socket.io/?EIO=3&transport=polling&t=MazBBMl&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:52:39] "POST /socket.io/?EIO=3&transport=polling&t=MazBHSg&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO socket.py:52 2095e3a935ef4c55b0eca1884737df9d: Received packet PING data None
+INFO socket.py:94 2095e3a935ef4c55b0eca1884737df9d: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:53:04] "GET /socket.io/?EIO=3&transport=polling&t=MazBHSp&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:53:04] "POST /socket.io/?EIO=3&transport=polling&t=MazBNZS&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO socket.py:52 2095e3a935ef4c55b0eca1884737df9d: Received packet PING data None
+INFO socket.py:94 2095e3a935ef4c55b0eca1884737df9d: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:53:29] "GET /socket.io/?EIO=3&transport=polling&t=MazBNZi&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [02/Mar/2019 14:53:29] "POST /socket.io/?EIO=3&transport=polling&t=MazBTgN&sid=2095e3a935ef4c55b0eca1884737df9d HTTP/1.1" 200 -
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+INFO _internal.py:88  * Restarting with stat
+INFO server.py:139 Server initialized for threading.
+WARNING _internal.py:88 WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+WARNING _internal.py:88  * Debugger is active!
+INFO _internal.py:88  * Debugger PIN: 945-199-908
+INFO _internal.py:88  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO socket.py:94 63a10116a7b744b7b92b59aed0f7152c: Sending packet OPEN data {'sid': '63a10116a7b744b7b92b59aed0f7152c', 'upgrades': [], 'pingTimeout': 60000, 'pingInterval': 25000}
+INFO socket.py:94 63a10116a7b744b7b92b59aed0f7152c: Sending packet MESSAGE data 0
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:18:33] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xBiG HTTP/1.1" 200 -
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet OPEN data {'sid': '060cf8a8e5b845ed87619394bf1922d5', 'upgrades': [], 'pingTimeout': 60000, 'pingInterval': 25000}
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet MESSAGE data 0
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:18:36] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xCVu HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:19:01] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xCaA&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:19:01] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xIgo&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:19:26] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xIh3&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:19:26] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xOni&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:75 63a10116a7b744b7b92b59aed0f7152c: Client is gone, closing socket
+INFO socket.py:75 63a10116a7b744b7b92b59aed0f7152c: Client is gone, closing socket
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:19:33] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xBl8&sid=63a10116a7b744b7b92b59aed0f7152c HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:19:51] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xOnr&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:19:51] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xUuV&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:20:16] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xUue&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:20:16] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xa_I&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:20:41] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xa_R&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:20:41] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xh65&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:21:07] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xh6E&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:21:07] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xnCv&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:21:32] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xnD2&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:21:32] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xtJh&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:21:57] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xtK9&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:21:57] "POST /socket.io/?EIO=3&transport=polling&t=Mb6xzQo&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:22:22] "GET /socket.io/?EIO=3&transport=polling&t=Mb6xzQ-&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:22:22] "POST /socket.io/?EIO=3&transport=polling&t=Mb6y3Xd&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:22:47] "GET /socket.io/?EIO=3&transport=polling&t=Mb6y3Xn&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:22:47] "POST /socket.io/?EIO=3&transport=polling&t=Mb6y9eR&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:23:12] "GET /socket.io/?EIO=3&transport=polling&t=Mb6y9ef&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:23:12] "POST /socket.io/?EIO=3&transport=polling&t=Mb6yFlI&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:23:37] "GET /socket.io/?EIO=3&transport=polling&t=Mb6yFlU&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:23:37] "POST /socket.io/?EIO=3&transport=polling&t=Mb6yLs8&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:24:02] "GET /socket.io/?EIO=3&transport=polling&t=Mb6yLsL&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:24:02] "POST /socket.io/?EIO=3&transport=polling&t=Mb6yRy_&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:52 060cf8a8e5b845ed87619394bf1922d5: Received packet PING data None
+INFO socket.py:94 060cf8a8e5b845ed87619394bf1922d5: Sending packet PONG data None
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:24:27] "GET /socket.io/?EIO=3&transport=polling&t=Mb6yRzA&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:24:27] "POST /socket.io/?EIO=3&transport=polling&t=Mb6yY3p&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 200 -
+INFO socket.py:75 060cf8a8e5b845ed87619394bf1922d5: Client is gone, closing socket
+INFO _internal.py:88 127.0.0.1 - - [04/Mar/2019 12:25:27] "GET /socket.io/?EIO=3&transport=polling&t=Mb6yY3_&sid=060cf8a8e5b845ed87619394bf1922d5 HTTP/1.1" 400 -
