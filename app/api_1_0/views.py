@@ -1,13 +1,18 @@
-import random
 from . import bp
 from flask import request, jsonify, current_app, session, render_template
 from flask_socketio import emit
-from app import redis_store, db, socketio
-from app.models import User, Group, GroupsToUser
+from app import redis_store, socketio
 from threading import Lock
-from sqlalchemy.exc import IntegrityError
-from .methods import UserHandler, GroupHandler, GroupUserHandler
+from .chat import ChatHandler
+from .user import UserHandler
+from .group import GroupHandler
+from .group_user import GroupUserHandler
+from .friend import FriendHandler
+from utils.restful import server_error, params_error, success, unauth_error
+from utils.cut_image import CutImage
 from app.models import *
+
+import uuid
 
 
 thread = None
@@ -86,6 +91,12 @@ def index():
     return render_template('index.html')
 
 
+@bp.route('/user_info', methods=['GET'])
+def user_info():
+    user_handler = UserHandler()
+    return jsonify(user_handler.user_info())
+
+
 @bp.route('/user', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def user():
     """  用户管理  """
@@ -107,7 +118,7 @@ def login():
     password = request_data.get('password')
 
     if not all([username, password]):
-        return jsonify({'state': 2, 'message': '缺少必要参数'})
+        return jsonify(params_error(message='缺少必要参数'))
 
     # 获取用户登录IP
     user_ip = request.remote_addr
@@ -117,14 +128,14 @@ def login():
         current_app.logger.error(e)
     else:
         if access_nums and int(access_nums) >= 5:
-            return jsonify({'state': 2, 'message': '错误次数过多，请稍后重试'})
+            return jsonify(unauth_error(message='错误次数过多，请稍后重试'))
 
     # 从数据库查询用户对象
     try:
         user_obj = User.query.filter_by(username=username).first()
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify({'state': 2, 'message': '获取用户信息失败'})
+        return jsonify(server_error(message = '获取用户信息失败'))
 
     # 取出用户密码与数据库密码对比
     if not user_obj or not user_obj.check_password(password):
@@ -136,14 +147,14 @@ def login():
         except Exception as e:
             current_app.logger.error(e)
 
-        return jsonify({'state': 2, 'message': '用户名或密码错误'})
+        return jsonify(unauth_error(message='用户名或密码错误'))
 
     # 登录成功
     session['username'] = username
     session['nickname'] = user_obj.nickname
     session['id'] = user_obj.id
 
-    return jsonify({'state': 1, 'message': '登录成功'})
+    return jsonify(success(data=user_obj.to_dict, message='用户登录成功'))
 
 
 @bp.route('/check_login', methods=['GET'])
@@ -152,22 +163,23 @@ def check_login():
     检查用户是否登录
     :return:
     """
-    username = session.get('username')
-    if not username:
-        return jsonify({'state': 2, 'message': '用户未登录'})
-
-    nickname = session.get('nickname')
     user_id = session.get('id')
+    if not user_id:
+        return jsonify(unauth_error(message='用户未登录'))
+
+    user_obj = User.query.filter_by(id=user_id).first()
+    if not user_obj:
+        return jsonify(unauth_error(message='用户不存在'))
 
     # 返回已登录状态，和用户数据
-    return jsonify({'state': 1, 'user_data': {'username': username, 'nickname': nickname, 'id': user_id}})
+    return jsonify(success(data=user_obj.to_dict))
 
 
 @bp.route('/logout', methods=['POST'])
 def logout():
     """ 用户退出登录 """
     session.clear()     # 清除用户session
-    return jsonify({'state': 1,'message': '用户退出成功'})
+    return jsonify(success())
 
 
 @bp.route('/group', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -182,6 +194,44 @@ def group_user():
     """  群组成员管理 """
     group_user_handler = GroupUserHandler()
     return jsonify(group_user_handler.result)
+
+@bp.route('/friend', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def friend():
+    """  好友管理 """
+    friend_handler = FriendHandler()
+    return jsonify(friend_handler.result)
+
+@bp.route('/chat', methods=['GET', 'POST', 'DELETE'])
+def chat():
+    """ 聊天列表管理 """
+    chat_handler = ChatHandler()
+    return jsonify(chat_handler.result)
+
+
+@bp.route('/upload_logo', methods=['POST'])
+def upload_logo():
+    """   上传头像  """
+    # 获取图片
+    file= request.files.get('file')
+    content_type = file.content_type
+    if content_type != 'image/jpeg':
+        return jsonify(params_error(message='文件类型不正确'))
+    # 生成图片名称
+    image_name = str(uuid.uuid1()) + '.' + file.filename.split('.')[-1]
+    image_path = '/static/logo/%s' % image_name
+    try:
+        with open('app' + image_path, 'wb') as f:
+            f.write(file.read())
+    except Exception as e:
+        current_app.logger.error(e)
+        return jsonify(server_error(message='上传失败'))
+
+    ci = CutImage('app' + image_path, 'app' + image_path)
+    ci.cut()
+
+    return jsonify(success(data={'url': image_path}))
+
+
 
 
 # @socketio.on('message')

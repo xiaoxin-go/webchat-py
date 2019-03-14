@@ -10,7 +10,10 @@ class BaseModel:
     update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)  # 记录更新时间
 
     def to_json(self):
-        pass
+        data = self.__dict__
+        if '_sa_instance_state' in data:
+            del data['_sa_instance_state']
+        return data
 
 
 class User(BaseModel, db.Model):
@@ -69,8 +72,8 @@ class Friends(BaseModel, db.Model):
     __tablename__ = 't_friends'
 
     id = db.Column(db.Integer, primary_key=True)        # 好友表ID
-    user_id = db.column(db.Integer, db.ForeignKey('t_user.id'))    # 用户ID
-    friend_id = db.column(db.Integer, db.ForeignKey('t_user.id'))  # 好友ID
+    user_id = db.Column(db.Integer)
+    friend_id = db.Column(db.Integer)
     remark = db.Column(db.String(1000))         # 备注名称
 
 
@@ -82,15 +85,7 @@ class Group(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True)                # 群组ID
     group_name = db.Column(db.String(32), nullable=False)       # 群组名称
     logo = db.Column(db.String(32), nullable=False)             # 群头像
-    group_info = db.Column(db.TEXT)                     # 群公告
-
-    def to_dict(self):
-        group_dict = {
-            'id': self.id,
-            'group_name': self.group_name,
-            'logo': self.logo
-        }
-        return group_dict
+    group_info = db.Column(db.TEXT)                             # 群公告
 
 
 class GroupsToUser(BaseModel, db.Model):
@@ -98,8 +93,8 @@ class GroupsToUser(BaseModel, db.Model):
 
     __tablename__ = 't_groupuser'
     id = db.Column(db.Integer, primary_key=True)
-    group_id = db.Column(db.Integer, db.ForeignKey('t_group.id'), nullable=False)         # 群组ID，外键群组
-    user_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)           # 成员ID，外键用户
+    group_id = db.Column(db.Integer, nullable=False)         # 群组ID，外键群组
+    user_id = db.Column(db.Integer, nullable=False)           # 成员ID，外键用户
     remark = db.Column(db.String(32))                                      # 备注名称
     type = db.Column(db.Integer, default=2)                     # 成员类型，{0: 群主，1:管理员，2：普通成员}
 
@@ -114,6 +109,11 @@ class Chat(BaseModel, db.Model):
     type = db.Column(db.String(30))                 # 聊天类型
     logo = db.Column(db.String(100))                # 聊天头像
     chat_obj_id = db.Column(db.Integer)             # 聊天对象ID
+    message = db.Column(db.Text)                    # 聊天最后一条消息
+    update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)  # 记录更新时间
+    __mapper_args__ = {
+        "order_by": update_time.desc()
+    }
 
 
 class ChatMessage(BaseModel, db.Model):
@@ -123,7 +123,7 @@ class ChatMessage(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chat_id = db.Column(db.Integer)                 # 聊天ID
     message = db.Column(db.Text)                    # 消息内容
-    user_id = db.Column(db.Integer, db.ForeignKey('t_user.id'), nullable=False)     # 发送者
+    user_id = db.Column(db.Integer, nullable=False)     # 发送者
 
 
 

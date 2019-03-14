@@ -57,7 +57,7 @@ def create_app(config_name):
     Session(app)
 
     # 为flask补充csrf防护
-    CSRFProtect(app)
+    #CSRFProtect(app)
 
     # 允许跨域访问
     CORS(app, supports_credentials=True)
