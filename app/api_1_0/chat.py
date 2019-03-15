@@ -8,8 +8,7 @@ from .common import BaseHandler
 class ChatHandler(BaseHandler):
     """  聊天管理 """
     def get_(self):
-        user_obj = self.check_user()
-        if not user_obj:
+        if not self.user_obj:
             return
 
         chat_obj = self.filter_all(Chat, content='聊天列表查询异常')
@@ -62,8 +61,7 @@ class ChatHandler(BaseHandler):
         if not chat_obj:
             return
 
-        user_obj = self.check_user()
-        if not user_obj:
+        if not self.user_obj:
             return
 
         # 判断当前聊天是否属于该用户

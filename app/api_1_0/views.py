@@ -189,7 +189,7 @@ def group():
     return jsonify(group_handler.result)
 
 
-@bp.route('/group_add', methods=['GET','POST', 'PUT', 'DELETE'])
+@bp.route('/group_user', methods=['GET','POST', 'PUT', 'DELETE'])
 def group_user():
     """  群组成员管理 """
     group_user_handler = GroupUserHandler()

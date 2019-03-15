@@ -21,15 +21,14 @@ class GroupUserHandler(BaseHandler):
             return
 
         # 检查用户是否存在
-        user_obj = self.check_user()
-        if not user_obj:
+        if not self.user_obj:
             return
 
         # 获取成员是否在群组中
         group_user_obj = self.check_group_user(self.user_id, group_id)
 
         # 判断用户是否拥有添加成员权限，判断是否为站长，或者是否为群主或群管理员
-        if user_obj.type != 0 and not group_user_obj:
+        if self.user_obj.type != 0 and not group_user_obj:
             self.result = unauth_error(message='用户无权限')
             return
 
@@ -46,15 +45,11 @@ class GroupUserHandler(BaseHandler):
         """  添加群成员 """
         group_id = self.request_data.get('group_id')
         member_list = self.request_data.get('member_list')
+        print(member_list)
 
         # 判断参数是否完整
         if not all([group_id, self.user_id, member_list]):
             self.result = params_error()
-            return
-
-        # 检查群组是否存在
-        group_obj = self.check_group(group_id)
-        if not group_obj:
             return
 
         # 检查用户是否存在

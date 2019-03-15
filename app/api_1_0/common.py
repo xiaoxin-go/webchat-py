@@ -10,6 +10,7 @@ class BaseHandler:
         self.result = {}
         self.request_data = {}
         self.user_id = session.get('id')
+        self.user_obj = self.check_user()
 
         if request.method == 'GET':
             self.request_data = request.values
