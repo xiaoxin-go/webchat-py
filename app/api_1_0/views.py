@@ -2,88 +2,135 @@ from . import bp
 from flask import request, jsonify, current_app, session, render_template
 from flask_socketio import emit
 from app import redis_store, socketio
-from threading import Lock
 from .chat import ChatHandler
 from .user import UserHandler
 from .group import GroupHandler
 from .group_user import GroupUserHandler
 from .friend import FriendHandler
+from .chat_message import ChatMessageHandler
 from utils.restful import server_error, params_error, success, unauth_error
 from utils.cut_image import CutImage
 from app.models import *
+from .common import now
 
+import time
 import uuid
-
-
-thread = None
-thread_lock = Lock()
-logined_userid = []
+import json
 
 
 def ack(value):
     print(value)
 
 
-@socketio.on('send_message')
-def handle_json(msg):
-    user = User.query.get(msg.get('send_id'))
-    if user:
-        return_msg = {
-            'username': user.username,
-            'msg': msg['data'],
-            'cerate_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        }
-        emit('recive_msg', return_msg, broadcast=True, callback=ack)
+@socketio.on('message')
+def handle_json(request_data):
+    # 获取发送的数据
+    user_data = request_data.get('user_data')
+    chat_id = request_data.get('chat_id')
+    message = request_data.get('message')
+    print(request_data)
+    # 获取聊天信息，并将发送的数据保存到redis中，并更新聊天信息
+    user_data['message'] = message
+    user_data['add_time'] = now()
+    chat_obj = Chat.query.get(chat_id)
+    print('chat_obj.type',chat_obj.type)
+    chat_key = 'chat_%s_%s' % (chat_id, now())
+    redis_store.set(chat_key, user_data, 3600*24)
+    chat_obj.message = message
+    db.session.commit()
+
+    # 发送消息，获取聊天类型，如果是1，则是单聊
+    # 获取聊天对象ID，获取此聊天的sid，向此用户发送消息
+    chat_obj_id = chat_obj.chat_obj_id
+    if chat_obj.type == 1:
+        print('------chat_obj.type')
+        chat_key = 'chat_sid_%s' % chat_obj_id
+        chat_sid = redis_store.get(chat_key)
+        print(chat_key, chat_sid)
+        if chat_sid:
+            print(json.dumps(user_data))
+            emit('message', user_data, room=chat_sid.decode())
+            #emit('message', user_data, room=request.sid)
+
+        chat_list_key = 'chat_list_sid_%s' % chat_obj_id
+        chat_list_sid = redis_store.get(chat_list_key)
+        if chat_list_sid:
+            emit('message', chat_obj.to_json(), room=chat_list_sid.decode())
+
+    # 否则为群组聊天，获取聊天对象ID
+    else:
+        group_user_query = GroupsToUser.query.filter_by(group_id=chat_obj_id)
+        for group_user in group_user_query:
+            if group_user.user_id == user_data.id:
+                continue
+            chat_key = 'chat_sid_%s' % group_user.user_id
+            chat_sid = redis_store.get(chat_key)
+            print('chat_key', chat_key, chat_sid)
+            if chat_sid:
+                emit('message', user_data, room=chat_sid.decode())
+
+            chat_list_key = 'chat_list_sid_%s' % group_user.user_id
+
+            chat_list_sid = redis_store.get(chat_list_key)
+            print('chat_list_key', chat_list_key, chat_list_sid)
+            if chat_list_sid:
+                emit('message', chat_obj.to_json(), room=chat_list_sid.decode())
+
+    print('message.............test')
+    print(request.sid)
+    # emit('message', 'test', room=request.sid, callback=ack)
 
 
-@socketio.on('newLogin')
-def newLogin(username):
-    user = User.query.filter_by(username=username).first()
-    if user.id not in logined_userid:
-        logined_userid.append(user.id)
-        emit('newLogin_return', username, broadcast=True)
-    return 'success'
+@socketio.on('in_chat')
+def in_chat(chat_id):
+    """
+    用户进入聊天页面，将用户的id和sid绑定，为chat_chatid_sid_userid = sid
+    :return:
+    """
+    sid = request.sid
+    user_id = session.get('id')
+    chat_key = 'chat_sid_%s' % user_id
+    print('进入聊天页面', chat_key, sid)
+    redis_store.set(chat_key, sid)
+    #emit('message', 'test', room=request.sid, callback=ack)
 
 
-@socketio.on('newLogout')
-def newLogout(user_id):
-    user = User.query.get(user_id)
-    emit('newLogout_return', user.username, broadcast=True)
-    return 'success'
-
-# def background_thread(users_to_json):
-#     while True:
-#         print(users_to_json)
-#         users_to_json = [{'name': 'test' + str(random.randint(1,100))}]
-#         socketio.sleep(0.5)
-#         socketio.emit('user_response', {'data': users_to_json}, namespace='/websocket/user_refresh')
-#
-#
-# @socketio.on('content', namespace='/websocket/user_refresh')
-# def connect():
-#     """  服务端自动发送通信请求 """
-#     global thread
-#     users_to_json = ''
-#     with thread_lock:
-#         if thread is None:
-#             thread = socketio.start_background_task(background_thread, (users_to_json,))
-#     print('.......')
-#     emit('server_response', {'data': '试图连接客户端'})
-#
-#
-# @socketio.on('connect_event', namespace='/websocket/user_refresh')
-# def refresh_message(message):
-#     """  服务端接受客户端发送的通信请求 """
-#     print('message:',message)
-#     emit('server_response', {'data': message['data']})
+@socketio.on('out_chat')
+def out_chat(chat_id):
+    """
+    用户退出聊天界面，删除用户的sid
+    :return:
+    """
+    user_id = session.get('id')
+    chat_key = 'chat_sid_%s' % user_id
+    redis_store.delete(chat_key)
+    #emit('message', 'test', room=request.sid, callback=ack)
 
 
-@socketio.on('request_for_response', namespace='/testnamespace')
-def give_response(data):
-    value = data.get('param')
-    emit('response', {'code': '200', 'msg': 'start to process...'})
+@socketio.on('in_chat_list')
+def in_chat_list():
+    """
+    用户进入聊天列表，将用户的id和sid绑定，为chat_list_sid_userid = sid
+    :return:
+    """
+    sid = request.sid
+    user_id = session.get('id')
+    chat_key = 'chat_list_sid_%s' % user_id
+    redis_store.set(chat_key, sid)
+    #emit('message', 'test', room=request.sid, callback=ack)
 
-    emit('response', {'code': '200', 'msg': 'processed'})
+
+@socketio.on('out_chat_list')
+def out_chat_list():
+    """
+    退出聊天列表，清除用户sid
+    :return:
+    """
+    user_id = session.get('id')
+    chat_key = 'chat_list_sid_%s' % user_id
+    redis_store.delete(chat_key)
+    #emit('message', 'test', room=request.sid, callback=ack)
+
 
 
 @bp.route('/', methods=['GET'])
@@ -154,7 +201,15 @@ def login():
     session['nickname'] = user_obj.nickname
     session['id'] = user_obj.id
 
-    return jsonify(success(data=user_obj.to_dict, message='用户登录成功'))
+    # 更改用户在线状态
+    user_obj.state = 1
+    try:
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.error(e)
+        return jsonify(server_error('登录异常'))
+
+    return jsonify(success(data=user_obj.to_dict(), message='用户登录成功'))
 
 
 @bp.route('/check_login', methods=['GET'])
@@ -178,6 +233,13 @@ def check_login():
 @bp.route('/logout', methods=['POST'])
 def logout():
     """ 用户退出登录 """
+    id = session.get('id')
+    try:
+        user_obj = User.query.get(id)
+        user_obj.state = 0
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.error(e)
     session.clear()     # 清除用户session
     return jsonify(success())
 
@@ -195,11 +257,13 @@ def group_user():
     group_user_handler = GroupUserHandler()
     return jsonify(group_user_handler.result)
 
+
 @bp.route('/friend', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def friend():
     """  好友管理 """
     friend_handler = FriendHandler()
     return jsonify(friend_handler.result)
+
 
 @bp.route('/chat', methods=['GET', 'POST', 'DELETE'])
 def chat():
@@ -208,11 +272,19 @@ def chat():
     return jsonify(chat_handler.result)
 
 
+@bp.route('/chat_message', methods=['GET', 'POST'])
+def chat_message():
+    chat_message_handler = ChatMessageHandler()
+    return jsonify(chat_message_handler.result)
+
+
 @bp.route('/upload_logo', methods=['POST'])
 def upload_logo():
     """   上传头像  """
     # 获取图片
+    print('upload..................')
     file= request.files.get('file')
+    print('file..',file)
     content_type = file.content_type
     if content_type != 'image/jpeg':
         return jsonify(params_error(message='文件类型不正确'))
@@ -230,36 +302,3 @@ def upload_logo():
     ci.cut()
 
     return jsonify(success(data={'url': image_path}))
-
-
-
-
-# @socketio.on('message')
-# def handle_message(message):
-#     print('received message: ' + message)
-#
-#
-# @socketio.on('json')
-# def handle_json(json):
-#     """  接收json字符串 """
-#     print('received json: ' + str(json))
-#
-#
-# @socketio.on('my event')
-# def handle_my_custom_event(json):
-#     """  自定义命名事件 """
-#     print('received json:' + str(json))
-#
-#
-# @socketio.on('my event')
-# def handle_my_custom_event(arg1, arg2, arg3):
-#     """  自定义命名事件接收多个参数 """
-#     print('received args: ' + arg1 + arg2 + arg3)
-#
-#
-# @socketio.on('my event', namespace='/test')
-# def handle_my_custom_namespace_event(json):
-#     print('received json: ' + str(json))
-#
-#
-# socketio.on_event('my event', handle_my_custom_event, namespace='/test')

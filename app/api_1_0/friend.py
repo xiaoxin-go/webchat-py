@@ -15,15 +15,19 @@ class FriendHandler(BaseHandler):
             return
 
         # 获取好友信息
-        friends_query = self.query_(Friends, {'user_id': self.user_id}, '好友信息查询异常')
+        if user_obj.type == 0:
+            friends_query = self.filter_all(Friends, '好友信息查询异常')
+        else:
+            friends_query = self.query_(Friends, {'user_id': self.user_id}, '好友信息查询异常')
         if not friends_query:
             return
+
         data_list = []
         for friend in friends_query:
             user_obj = self.check_user(friend.friend_id)
             if not user_obj:
                 continue
-            user_info = user_obj.to_dict
+            user_info = user_obj.to_dict()
             user_info['remark_name'] = friend.remark
             data_list.append(user_info)
         self.result = success(data=data_list)
@@ -58,6 +62,8 @@ class FriendHandler(BaseHandler):
         """  修改好友信息，备注信息 """
         friend_id = self.request_data.get('friend_id')
         remark = self.request_data.get('remark')
+        print(self.user_id, friend_id, remark)
+        print(Friends.query.filter_by(user_id=self.user_id, friend_id=friend_id).first())
         if not all([friend_id, remark]):
             self.result = params_error()
             return
@@ -68,7 +74,7 @@ class FriendHandler(BaseHandler):
             return
 
         friend_obj = self.check_friend(self.user_id, friend_id)
-        if not friend_id:
+        if not friend_obj:
             return
 
         friend_obj.remark = remark

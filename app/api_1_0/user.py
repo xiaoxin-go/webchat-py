@@ -10,11 +10,8 @@ class UserHandler(BaseHandler):
 
     def get_(self):
         """  查询用户 """
+        print('request_data:', self.request_data)
         username = self.request_data.get('username')
-
-        if not self.user_id:
-            self.result = params_error()
-            return
 
         # 判断用户是否存在
         user_obj = self.check_user()
@@ -26,16 +23,11 @@ class UserHandler(BaseHandler):
             self.result = unauth_error(message='无操作权限')
             return
 
-        try:
-            user_query = User.query.filter(User.username == username) if username else User.query.filter()
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = server_error(message='用户查询异常')
-            return
-
-        total = user_query.count()
-        data_list = [user.to_dict for user in user_query]
-        self.result = success(data=data_list)
+        user = self.query_(User, {'username': username}, '用户信息获取异常').first()
+        print('username:', username)
+        data = user.to_dict() if user else {}
+        print(data)
+        self.result = success(data=data)
 
     def add_(self):
         """  注册用户 """
@@ -65,53 +57,30 @@ class UserHandler(BaseHandler):
     def put_(self):
         """  用户修改 """
 
-        username = self.request_data.get('username')
-        if not username:
-            self.result = params_error(message='缺少必要参数')
+        logo = self.request_data.get('logo')
+        nickname = self.request_data.get('nickname')
+        password = self.request_data.get('password')
+        type = self.request_data.get('type')
+        if not any([logo, nickname, password, type]):
+            self.result = params_error()
             return
-        old_password = self.request_data.get('old_password')
-
-        try:
-            user_obj = User.query.filter_by(username=username).first()
-        except Exception as e:
-            current_app.logger.error(e)
-            self.result = server_error(message='获取用户信息失败')
+        if not self.user_obj:
             return
 
-        if not user_obj:
-            self.result = unauth_error(message='用户信息不存在')
-            return
-
-        # 如果密码存在，则为修改密码
-        if old_password:
-            new_password = self.request_data.get('new_password')
-            if not new_password:
-                self.result = params_error(message='缺少必要参数')
-                return
-
-            # 原密码不正确
-            if not user_obj.check_password(old_password):
-                self.result = params_error(message='原密码不正确')
-                return
-
-            # 检验成功，修改用户密码
-            user_obj.password = new_password
-            if not self.commit(content2='修改密码异常'):
-                return
-
-            self.result = success(message='密码修改成功')
-        # 否则为修改昵称
+        # 修改用户密码
+        if password:
+            self.user_obj.password = password
+        elif nickname:
+            self.user_obj.nickname = nickname
+        elif logo:
+            self.user_obj.logo = logo
         else:
-            nickname = self.request_data.get('nickname')
-            if not nickname:
-                self.result = params_error(message='缺少必要参数')
-                return
+            self.user_obj.type = type
 
-            user_obj.nickname = nickname
-            if not self.commit(content2='修改昵称异常'):
-                return
+        if not self.commit(content2='修改用户信息异常'):
+            return
 
-            self.result = success(message='用户昵称修改成功')
+        self.result = success(message='修改成功')
 
     def delete_(self):
         """  用户删除 """

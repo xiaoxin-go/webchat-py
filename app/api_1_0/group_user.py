@@ -37,7 +37,7 @@ class GroupUserHandler(BaseHandler):
         if not group_user_query:
             return
 
-        data_list = [group_user.to_dict for group_user in group_user_query]
+        data_list = [group_user.to_json() for group_user in group_user_query]
         total = group_user_query.count()
         self.result = success(data=data_list)
 

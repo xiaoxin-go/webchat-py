@@ -3,7 +3,10 @@ from sqlalchemy.exc import IntegrityError
 from app import db
 from app.models import User, Group, GroupsToUser, Friends, Chat
 from utils.restful import server_error,unauth_error
+import time
 
+def now():
+    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
 class BaseHandler:
     def __init__(self):
@@ -95,7 +98,8 @@ class BaseHandler:
     def check_friend(self, user_id, friend_id):
         """  检查好友信息是否存在 """
         try:
-            friend_obj = Friends.qeury.filter_by(user_id=user_id, friend_id=friend_id).first()
+            friend_obj = Friends.query.filter_by(user_id=self.user_id, friend_id=friend_id).first()
+            print('check_friend',friend_obj)
         except Exception as e:
             current_app.logger.error(e)
             self.result = server_error(message='好友信息获取异常')
@@ -149,4 +153,6 @@ class BaseHandler:
             db.session.rollback()
             current_app.logger.error(e)
             self.result = server_error(message=content2)
+
+        print('session...success')
         return True

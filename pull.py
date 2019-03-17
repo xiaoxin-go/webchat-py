@@ -13,9 +13,17 @@ jses = r'app\static\js'
 if os.path.exists(jses):
     shutil.rmtree(jses)
 
+fonts = r'app\static\fonts'
+if os.path.exists(fonts):
+    shutil.rmtree(fonts)
+
 images = r'app\static\images'
 if os.path.exists(images):
     shutil.rmtree(images)
+
+img = r'app\static\img'
+if os.path.exists(img):
+    shutil.rmtree(img)
 
 # 复制文件
 base_path = r'F:\web\webchat\dist'

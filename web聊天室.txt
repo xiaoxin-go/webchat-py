@@ -66,14 +66,18 @@
 用户修改： updateUser	=>	/user 		=>	user.UserHandler
 	请求： put
 	参数： {
-		username: 用户名
-		old_password: 用户密码		// 判断old_password是否在数据中，若存在则为修改密码，否则为修改昵称
-		new_password: 新密码
+		logo: 用户头像
+		password: 用户密码		// 判断old_password是否在数据中，若存在则为修改密码，否则为修改昵称
 		nickname: 用户昵称
 	}
 	返回：{
 		state： 状态值，{0: 异常，1：成功，2：失败}
 	}
+	执行逻辑：
+	1. 判断用户是否存在
+	2. 判断用户头像是否存在，若头像存在则为修改头像
+	3. 获取用户昵称是否存在，若昵称存在则为修改昵称
+	4. 判断密码，若存在则为修改密码
 
 删除用户： deleteUser	=>	/user 		=>	user.UserHandler
 
@@ -179,13 +183,11 @@
 	3. 获取用户对象，判断用户是否有添加成员权限，只有站长，群主，管理员有加人权限
 	4. 添加成员
 
-群组修改成员： putGroupUser	=>	/group_user		=>		group_user.GroupUserHandler
-	请求： post
+群组修改成员： updateGroupUser	=>	/group_user		=>		group_user.GroupUserHandler
+	请求： put
 	参数：{
 		group_id: 当前群组ID，
-		user_id: 用户ID，
 		to_user_id: 要修改备注名的用户ID，
-		remark_name: 备注名称, 
 		group_type: 修改用户状态，[1, 2]	
 	}
 	返回：{
@@ -523,7 +525,10 @@ socket设计
 	add_friend_active: false,
 
 
-
+聊天通信逻辑：
+1. 用户登录成功后，获取用户sid和用户ID绑定，保存到redis中，并且更改用户在数据库中的登录状态
+2. 加入聊天室则将用户sid加入，以chat_sid_userid
+3. 当用户在chat页面时，也需要将sid chat_list_sid_groupid 加入，将最新chat信息发送给用户
 
 
 

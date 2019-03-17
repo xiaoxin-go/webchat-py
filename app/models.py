@@ -1,18 +1,24 @@
 from datetime import datetime
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+import copy
 
 
 class BaseModel:
     """  模型基类，为每个模型补充创建时间与更新时间  """
 
-    create_time = db.Column(db.DateTime, default=datetime.now)  # 记录创建时间
-    update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)  # 记录更新时间
+    create_time = db.Column(db.DateTime, default=datetime.now())  # 记录创建时间
+    update_time = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())  # 记录更新时间
 
     def to_json(self):
-        data = self.__dict__
+        data = copy.deepcopy(self.__dict__)
         if '_sa_instance_state' in data:
             del data['_sa_instance_state']
+
+        for key, value in data.items():
+            if isinstance(value, datetime):
+                data[key] = value.strftime('%Y-%m-%d %H:%M:%S')
+
         return data
 
 
@@ -22,8 +28,8 @@ class User(BaseModel, db.Model):
     __tablename__ = 't_user'
 
     id = db.Column(db.Integer, primary_key=True)    # 用户ID
-    username = db.Column(db.String(32), unique=True, nullable=False)    # 用户名
-    nickname = db.Column(db.String(32), nullable=False)             # 用户昵称
+    username = db.Column(db.String(200), unique=True, nullable=False)    # 用户名
+    nickname = db.Column(db.String(200), nullable=False)             # 用户昵称
     password_hash = db.Column(db.String(128), nullable=False)       # 加密后的密码
     logo = db.Column(db.String(128))                # 用户头像
     state = db.Column(db.Integer, default=0)        # 用户状态，是否在线，在线为1
@@ -61,7 +67,8 @@ class User(BaseModel, db.Model):
             'username': self.username,
             'nickname': self.nickname,
             'logo': self.logo,
-            'create_time': self.create_time
+            'create_time': self.create_time,
+            'type': self.type
         }
         return user_dict
 
@@ -83,8 +90,8 @@ class Group(BaseModel, db.Model):
     __tablename__ = 't_group'
 
     id = db.Column(db.Integer, primary_key=True)                # 群组ID
-    group_name = db.Column(db.String(32), nullable=False)       # 群组名称
-    logo = db.Column(db.String(32), nullable=False)             # 群头像
+    name = db.Column(db.String(200), nullable=False)       # 群组名称
+    logo = db.Column(db.String(200), nullable=False)             # 群头像
     group_info = db.Column(db.TEXT)                             # 群公告
 
 
@@ -95,7 +102,7 @@ class GroupsToUser(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     group_id = db.Column(db.Integer, nullable=False)         # 群组ID，外键群组
     user_id = db.Column(db.Integer, nullable=False)           # 成员ID，外键用户
-    remark = db.Column(db.String(32))                                      # 备注名称
+    remark = db.Column(db.String(200))                                      # 备注名称
     type = db.Column(db.Integer, default=2)                     # 成员类型，{0: 群主，1:管理员，2：普通成员}
 
 
@@ -105,12 +112,12 @@ class Chat(BaseModel, db.Model):
     __tablename__ = 't_chat'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)                 # 用户ID
-    name = db.Column(db.String(100))                # 聊天名称
-    type = db.Column(db.String(30))                 # 聊天类型
-    logo = db.Column(db.String(100))                # 聊天头像
+    name = db.Column(db.String(200))                # 聊天名称
+    type = db.Column(db.Integer)                 # 聊天类型, 1为单聊，2为群聊
+    logo = db.Column(db.String(200))                # 聊天头像
     chat_obj_id = db.Column(db.Integer)             # 聊天对象ID
     message = db.Column(db.Text)                    # 聊天最后一条消息
-    update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)  # 记录更新时间
+    update_time = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())  # 记录更新时间
     __mapper_args__ = {
         "order_by": update_time.desc()
     }

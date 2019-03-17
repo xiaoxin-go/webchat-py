@@ -18,7 +18,9 @@ class GroupHandler(BaseHandler):
 
         # 若群组ID存在，则只取出该群组信息
         group_id = self.request_data.get('group_id')
+        print('..........group_id', group_id)
         if group_id:
+            print(group_id)
             group_obj = self.check_group(group_id)
             if not group_obj:
                 return
@@ -49,31 +51,32 @@ class GroupHandler(BaseHandler):
     def add_(self):
         """  添加群组信息 """
         print(self.request_data)
-        group_name = self.request_data.get('group_name')
-        if not all([self.user_id, group_name]):
+        name = self.request_data.get('name')
+        if not all([self.user_id, name]):
             self.result = params_error()
             return
 
         # 获取用户，判断用户类型是否正确
-        user_obj = self.check_user()
-        if not user_obj or user_obj.type not in [0, 1]:
+        if not self.user_obj or self.user_obj.type not in [0, 1]:
             self.result = unauth_error(message='用户无权限')
             return
 
         # 设置群组头像，随机从默认图片中选取一张做为头像
-        group_logo = self.request_data.get('logo')
+        group_logo = self.request_data.get('group_logo')
         if not group_logo:
             group_logo = random.choice(DEFAULT_IMAGES)
 
         # 添加群组
-        group_obj = Group(group_name=group_name, logo=group_logo)
+        group_info = self.request_data.get('info')  # 获取群公告信息
+        group_obj = Group(name=name, logo=group_logo, group_info=group_info)
         db.session.add(group_obj)
         if not self.commit('群组已存在', '群组添加异常'):
             return
 
-        group_info = self.request_data.get('info')  # 获取群公告信息
-        # 添加群组
-        group_to_user = GroupsToUser(group_id=group_obj.id, user_id=self.user_id, type=0, group_info=group_info)
+        print('group_obj...', group_obj.id)
+
+        # 添加群组成员
+        group_to_user = GroupsToUser(group_id=group_obj.id, user_id=self.user_id, type=0)
         db.session.add(group_to_user)
         if not self.commit(content2='群组添加异常'):
             return
@@ -84,12 +87,12 @@ class GroupHandler(BaseHandler):
         """  修改群组信息，群组名称，头像 """
         group_id = self.request_data.get('group_id')
         group_logo = self.request_data.get('group_logo')
-        group_name = self.request_data.get('group_name')
+        name = self.request_data.get('name')
         group_info = self.request_data.get('group_info')
 
         # 用户ID和群组ID必须存在，并且群组名和群组头像至少存在一项
         if not all([group_id, self.user_id]) or (
-                all([group_id, self.user_id]) and (not group_logo and not group_name and not group_info)):
+                all([group_id, self.user_id]) and (not group_logo and not name and not group_info)):
             self.result = params_error()
             return
 
@@ -112,8 +115,8 @@ class GroupHandler(BaseHandler):
             return
 
         # 修改群组信息
-        if group_name:
-            group_obj.group_name = group_name
+        if name:
+            group_obj.name = name
         if group_logo:
             group_obj.logo = group_logo
         if group_info:
