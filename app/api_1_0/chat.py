@@ -85,7 +85,7 @@ class ChatHandler(BaseHandler):
             self.result = unauth_error('用户无权限')
             return
 
-        chat_obj.delete()
+        db.session.delete(chat_obj)
         if not self.commit():
             self.result = server_error('删除异常')
         self.result = success()

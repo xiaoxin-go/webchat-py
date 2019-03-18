@@ -527,8 +527,12 @@ socket设计
 
 聊天通信逻辑：
 1. 用户登录成功后，获取用户sid和用户ID绑定，保存到redis中，并且更改用户在数据库中的登录状态
-2. 加入聊天室则将用户sid加入，以chat_sid_userid
-3. 当用户在chat页面时，也需要将sid chat_list_sid_groupid 加入，将最新chat信息发送给用户
+2. 加入聊天室则将用户sid加入，以chat_sid_userid_to_user_id
+	若为进入用户组聊天，则修改为chat_sid_group_id_user_id
+3. 当用户在chat页面时，也需要将sid chat_list_sid_userid 加入，将最新chat信息发送给用户
+4. 单一聊天，数据保存在chat_user_to_user下，对两个用户信息进行排序，都在这里取聊天记录
+5. 群聊天记录保存在chat_group_groupid下，所有组用户在此取聊天记录
+6. 对于界面数据的更新，判断用户是否拥有当前聊天，若没有，则为用户添加当前聊天，并且记录聊天消息
 
 
 
