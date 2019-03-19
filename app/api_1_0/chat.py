@@ -65,6 +65,7 @@ class ChatHandler(BaseHandler):
         chat = Chat(name=name, type=chat_type, chat_obj_id=chat_obj_id, user_id=self.user_id, logo=logo)
         db.session.add(chat)
         self.commit()
+        print('创建chat: ', chat.id)
         self.result = success(message='聊天信息添加成功', data=chat.to_json())
 
     def delete_(self):

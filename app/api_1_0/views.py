@@ -3,7 +3,7 @@ from flask import request, jsonify, current_app, session, render_template
 from flask_socketio import emit
 from app import redis_store, socketio
 from .chat import ChatHandler
-from .user import UserHandler
+from .user import UserHandler, UserInfoHandler
 from .group import GroupHandler
 from .group_user import GroupUserHandler
 from .friend import FriendHandler
@@ -49,7 +49,7 @@ def handle_json(request_data):
         # 获取对方chat_id，并更新对方聊天记录，若聊天不存在，则创建
         to_chat_obj = Chat.query.filter_by(user_id=chat_obj_id, chat_obj_id=user_id).first()
         if not to_chat_obj:
-            to_chat_obj = Chat(user_id=chat_obj_id, type=1, chat_obj_id=user_id, message=message, logo=user_data.get('logo'))
+            to_chat_obj = Chat(user_id=chat_obj_id, type=1, chat_obj_id=user_id, message=message, logo=user_data.get('logo'), name=user_data.get('nickname'))
             db.session.add(to_chat_obj)
             db.session.commit()
             print(to_chat_obj.id)
@@ -224,8 +224,8 @@ def index():
 
 @bp.route('/user_info', methods=['GET'])
 def user_info():
-    user_handler = UserHandler()
-    return jsonify(user_handler.user_info())
+    user_handler = UserInfoHandler()
+    return jsonify(user_handler.result)
 
 
 @bp.route('/user', methods=['GET', 'POST', 'PUT', 'DELETE'])

@@ -15,15 +15,6 @@ class GroupUserHandler(BaseHandler):
             self.result = params_error()
             return
 
-        # 检查群组是否存在
-        group_obj = self.check_group(group_id)
-        if not group_obj:
-            return
-
-        # 检查用户是否存在
-        if not self.user_obj:
-            return
-
         # 获取成员是否在群组中
         group_user_obj = self.check_group_user(self.user_id, group_id)
 
@@ -37,8 +28,12 @@ class GroupUserHandler(BaseHandler):
         if not group_user_query:
             return
 
-        data_list = [group_user.to_json() for group_user in group_user_query]
-        total = group_user_query.count()
+        data_list = []
+        for group_user in group_user_query:
+            user = self.check_user(group_user.user_id)
+            if user:
+                data_list.append(user.to_dict())
+
         self.result = success(data=data_list)
 
     def add_(self):
@@ -52,16 +47,11 @@ class GroupUserHandler(BaseHandler):
             self.result = params_error()
             return
 
-        # 检查用户是否存在
-        user_obj = self.check_user()
-        if not user_obj:
-            return
-
         # 获取成员是否在群组中
         group_user_obj = self.check_group_user(self.user_id, group_id)
 
         # 判断用户是否拥有添加成员权限，判断是否为站长，或者是否为群主或群管理员
-        if user_obj.type != 0 and (not group_user_obj or group_user_obj.type not in [0, 1]):
+        if self.user_obj.type != 0 and (not group_user_obj or group_user_obj.type not in [0, 1]):
             self.result = unauth_error(message='用户无权限')
             return
 
@@ -163,46 +153,28 @@ class GroupUserHandler(BaseHandler):
 
     def delete_(self):
         """  删除群成员信息 """
+        print('---------------删除群组成员--------------------')
+        print(self.request_data)
         group_id = self.request_data.get('group_id')
         to_user_id = self.request_data.get('to_user_id')
 
         # 判断参数是否完整
-        if not all([group_id, self.user_id, to_user_id]):
+        if not all([group_id, to_user_id]):
             self.result = params_error()
 
-        # 检查用户和群组信息是否存在
-        check_obj = self.check_group_user(self.user_id, group_id)
-        if not check_obj:
-            return
+        # 获取用户在群组信息
+        group_user_obj = self.check_group_user(self.user_id, group_id)
 
-        user_obj, group_obj, group_user_obj = check_obj
-
-        # 判断目标用户是否存在
-        if self.user_id != to_user_id:
-            to_user_obj = self.check_user(to_user_id)
-            if not to_user_obj:
-                self.result = server_error(message='用户信息不存在')
-                return
-
-        # 判断目标用户是否在群组中
+        # 获取被删除用户在群组信息
         to_group_user_obj = self.check_group_user(to_user_id, group_id)
-
         if not to_group_user_obj:
-            self.result = unauth_error(message='目标用户不在群组中')
             return
 
         # 判断用户是否拥有删除用户权限
         # 用户不为站长，并且用户不在群组中，或者，权限小于目标用户权限
-        if user_obj.type != 0 and (not group_user_obj or (group_user_obj.type >= to_group_user_obj.type)):
+        if self.user_obj.type != 0 and (not group_user_obj or (group_user_obj.type >= to_group_user_obj.type)):
             self.result = unauth_error(message='无修改权限')
             return
 
-        db.session.delete(to_group_user_obj)
-        try:
-            db.session.commit()
-        except Exception as e:
-            current_app.logger.error(e)
-            db.session.rollback()
-            self.result = server_error(message='删除异常')
-            return
-        self.result = success(message='删除成功')
+        if self.commit():
+            self.result = success(message='删除成功')

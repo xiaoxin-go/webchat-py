@@ -51,7 +51,7 @@ class GroupHandler(BaseHandler):
     def add_(self):
         """  添加群组信息 """
         print(self.request_data)
-        name = self.request_data.get('name')
+        name = self.request_data.get('group_name')
         if not all([self.user_id, name]):
             self.result = params_error()
             return

@@ -4,6 +4,8 @@ from app.models import User
 from utils.restful import server_error, params_error, success, unauth_error
 from .common import BaseHandler
 
+import random
+
 
 class UserHandler(BaseHandler):
     """ 用户操作 """
@@ -13,13 +15,8 @@ class UserHandler(BaseHandler):
         print('request_data:', self.request_data)
         username = self.request_data.get('username')
 
-        # 判断用户是否存在
-        user_obj = self.check_user()
-        if not user_obj:
-            return
-
         # 判断用户是否拥有查询用户权限， 只有站长和副站长拥有查询权限
-        if user_obj.type not in [0, 1]:
+        if self.user_obj.type not in [0, 1]:
             self.result = unauth_error(message='无操作权限')
             return
 
@@ -41,8 +38,10 @@ class UserHandler(BaseHandler):
             self.result = params_error(message='缺少必要参数')
             return
 
+        logos = ['mingren.jpeg', 'mingren1.jpg', 'xiaoli1.jpeg', 'xiaoying1.jpeg', 'you1.jpg', 'zilanye1.jpg', 'zouzu1.jpg']
+        logo = '/static/logo/%s' % random.choice(logos)
         # 添加用户
-        user_obj = User(username=username, nickname=nickname)
+        user_obj = User(username=username, nickname=nickname, logo=logo)
 
         # 设置密码
         user_obj.password = password  # 已自动加密
@@ -85,9 +84,11 @@ class UserHandler(BaseHandler):
     def delete_(self):
         """  用户删除 """
 
-    def user_info(self):
-        user_obj = self.check_user()
+
+class UserInfoHandler(BaseHandler):
+    def get_(self):
+        user_id = self.request_data.get('user_id')
+        user_obj = self.check_user(user_id)
         if not user_obj:
             return
-
-        self.result = success(data=user_obj.to_dict)
+        self.result = success(data=user_obj.to_dict())

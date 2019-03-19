@@ -8,12 +8,15 @@ import time
 def now():
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
+
 class BaseHandler:
     def __init__(self):
         self.result = {}
         self.request_data = {}
         self.user_id = session.get('id')
         self.user_obj = self.check_user()
+        if not self.user_obj and not (request.path.split('/')[-1] == 'user' and request.method == 'POST'):
+            return
 
         if request.method == 'GET':
             self.request_data = request.values
