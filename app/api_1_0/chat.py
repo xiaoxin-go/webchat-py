@@ -58,15 +58,13 @@ class ChatHandler(BaseHandler):
         # 判断聊天对象是否存在
         chat = Chat.query.filter_by(user_id=self.user_id, type=chat_type, chat_obj_id=chat_obj_id).first()
         if chat:
-            print('chat....', chat.to_json())
-            self.result = success(data=chat.to_json())
+            self.result = success(data=chat.id)
             return
 
         chat = Chat(name=name, type=chat_type, chat_obj_id=chat_obj_id, user_id=self.user_id, logo=logo)
         db.session.add(chat)
         self.commit()
-        print('创建chat: ', chat.id)
-        self.result = success(message='聊天信息添加成功', data=chat.to_json())
+        self.result = success(message='聊天信息添加成功', data=chat.id)
 
     def delete_(self):
         chat_id = self.request_data.get('chat_id')

@@ -175,6 +175,6 @@ class GroupUserHandler(BaseHandler):
         if self.user_obj.type != 0 and (not group_user_obj or (group_user_obj.type >= to_group_user_obj.type)):
             self.result = unauth_error(message='无修改权限')
             return
-
+        db.session.delete(to_group_user_obj)
         if self.commit():
             self.result = success(message='删除成功')
