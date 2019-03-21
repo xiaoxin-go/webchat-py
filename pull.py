@@ -9,9 +9,17 @@ csses = r'app\static\css'
 if os.path.exists(csses):
     shutil.rmtree(csses)
 
+
+exclude_file = ['scripts.js', 'jquery-1.8.2.min.js']
 jses = r'app\static\js'
 if os.path.exists(jses):
     shutil.rmtree(jses)
+#js_files = os.listdir(jses)
+# for js_file in js_files:
+#     if js_file in exclude_file:
+#         continue
+#     js_file_path = r'%s\%s' % (jses, js_file)
+#     os.remove(js_file_path)
 
 fonts = r'app\static\fonts'
 if os.path.exists(fonts):

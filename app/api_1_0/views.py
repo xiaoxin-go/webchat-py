@@ -1,5 +1,5 @@
 from . import bp
-from flask import request, jsonify, current_app, session, render_template
+from flask import request, jsonify, current_app, session, render_template, redirect, url_for
 from flask_socketio import emit
 from app import redis_store, socketio
 from .chat import ChatHandler
@@ -216,12 +216,6 @@ def out_chat_list():
     #emit('message', 'test', room=request.sid, callback=ack)
 
 
-
-@bp.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
-
-
 @bp.route('/user_info', methods=['GET'])
 def user_info():
     user_handler = UserInfoHandler()
@@ -235,6 +229,15 @@ def user():
     return jsonify(user_handler.result)
 
 
+@bp.route('/', methods=['GET'])
+def index():
+    #if session.get('id'):
+    return render_template('index.html')
+
+    #login_url = url_for('.login', _external=True)
+    #return redirect(login_url)
+
+
 @bp.route('/login', methods=['POST'])
 def login():
     """
@@ -242,6 +245,14 @@ def login():
     用户名、 密码
     :return:
     """
+    #index_url = url_for('.index', _external=True)
+
+    #if session.get('id'):
+    #    return redirect(index_url)
+
+    #if request.method == 'GET':
+    #    return render_template('login.html')
+
 
     # 获取用户传输数据
     request_data = request.json
@@ -249,6 +260,7 @@ def login():
     password = request_data.get('password')
 
     if not all([username, password]):
+        #return render_template('login.html', message='缺少必要参数')
         return jsonify(params_error(message='缺少必要参数'))
 
     # 获取用户登录IP
@@ -259,6 +271,7 @@ def login():
         current_app.logger.error(e)
     else:
         if access_nums and int(access_nums) >= 5:
+            #return render_template('login.html', message='错误次数过多，请稍后重试')
             return jsonify(unauth_error(message='错误次数过多，请稍后重试'))
 
     # 从数据库查询用户对象
@@ -266,6 +279,7 @@ def login():
         user_obj = User.query.filter_by(username=username).first()
     except Exception as e:
         current_app.logger.error(e)
+        #return render_template('login.html', message='获取用户信息失败')
         return jsonify(server_error(message = '获取用户信息失败'))
 
     # 取出用户密码与数据库密码对比
@@ -277,7 +291,7 @@ def login():
             redis_store.expire('access_num_%s' % user_ip, 600)  # 数据保存600秒
         except Exception as e:
             current_app.logger.error(e)
-
+        #return render_template('login.html', message='用户名或密码错误')
         return jsonify(unauth_error(message='用户名或密码错误'))
 
     # 登录成功
@@ -291,8 +305,10 @@ def login():
         db.session.commit()
     except Exception as e:
         current_app.logger.error(e)
+        #return render_template('login.html', message='登录异常')
         return jsonify(server_error('登录异常'))
 
+    #return redirect(index_url)
     return jsonify(success(data=user_obj.to_dict(), message='用户登录成功'))
 
 
@@ -303,6 +319,7 @@ def check_login():
     :return:
     """
     user_id = session.get('id')
+    print('用户ID：',user_id)
     if not user_id:
         return jsonify(unauth_error(message='用户未登录'))
 
@@ -311,7 +328,7 @@ def check_login():
         return jsonify(unauth_error(message='用户不存在'))
 
     # 返回已登录状态，和用户数据
-    return jsonify(success(data=user_obj.to_dict))
+    return jsonify(success(data=user_obj.to_dict()))
 
 
 @bp.route('/logout', methods=['POST'])

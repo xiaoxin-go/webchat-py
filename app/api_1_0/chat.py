@@ -27,7 +27,22 @@ class ChatHandler(BaseHandler):
         if not chat_obj:
             return
 
-        data_list = [chat.to_json() for chat in chat_obj]
+        data_list = []
+        for chat in chat_obj:
+            chat_data = chat.to_json()
+            if chat.type == 1:
+                user = self.check_user(chat.chat_obj_id)
+                friend = self.check_friend(self.user_id, chat.chat_obj_id)
+                chat_data['logo'] = user.logo
+                chat_data['name'] = friend.remark or user.nickname
+            else:
+                group = self.check_group(chat.chat_obj_id)
+                print(group)
+                chat_data['logo'] = group.logo
+                chat_data['name'] = group.name
+
+            data_list.append(chat_data)
+        #data_list = [chat.to_json() for chat in chat_obj]
         self.result = success(data=data_list)
 
     def add_(self):

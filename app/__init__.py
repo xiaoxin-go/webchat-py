@@ -67,7 +67,7 @@ def create_app(config_name):
 
     # 注册蓝图
     from app import api_1_0
-    app.register_blueprint(api_1_0.bp, url_prefix='/api/v1.0')
+    app.register_blueprint(api_1_0.bp, url_prefix='/')
 
     # 注册提供静态文件的蓝图
     #from app import web_html

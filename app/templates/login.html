@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .title{
+
+        }
+        .title>p{
+
+        }
+        form{
+
+        }
+        .username{
+
+        }
+        .password{
+
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <div class="title">
+        <p>聊天室登录</p>
+    </div>
+    <form action="login" method="post">
+        <input type="text" name="username" class="username" placeholder="Username">
+        <input type="password" name="password" class="password" placeholder="Password">
+        <button type="submit">Login</button>
+        <div class="error"><span>{{ message }}</span></div>
+    </form>
+</div>
+<script src="/static/js/jquery-1.8.2.min.js"></script>
+<script src="/static/js/scripts.js"></script>
+</body>
+</html>
