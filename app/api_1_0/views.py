@@ -123,8 +123,6 @@ def handle_json(request_data):
 
     db.session.commit()
 
-    print(request.sid)
-
 
 @socketio.on('in_chat')
 def in_chat(chat):
@@ -133,7 +131,7 @@ def in_chat(chat):
     :return:
     """
     print('---------------用户进入聊天页面---------------')
-    print(chat)
+    print(chat, request.sid)
     print(session.get('nickname'))
     print('---------------end---------------')
     if not chat:
@@ -194,7 +192,7 @@ def in_chat_list():
     print('---------------用户进入聊天列表-----------------')
     sid = request.sid
     user_id = session.get('id')
-    print(user_id, session.get('nickname'))
+    print(user_id, session.get('nickname'), sid)
     print('---------------end-----------------')
     chat_key = 'chat_list_sid_%s' % user_id
     redis_store.set(chat_key, sid, 3600*12)

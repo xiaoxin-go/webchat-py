@@ -33,10 +33,14 @@ class ChatHandler(BaseHandler):
             if chat.type == 1:
                 user = self.check_user(chat.chat_obj_id)
                 friend = self.check_friend(self.user_id, chat.chat_obj_id)
+                if not friend:
+                    continue
                 chat_data['logo'] = user.logo
                 chat_data['name'] = friend.remark or user.nickname
             else:
                 group = self.check_group(chat.chat_obj_id)
+                if not group:
+                    continue
                 print(group)
                 chat_data['logo'] = group.logo
                 chat_data['name'] = group.name
