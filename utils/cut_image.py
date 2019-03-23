@@ -7,7 +7,15 @@ class CutImage:
         self.image = image
         self.url = url
 
+    def resize(self):
+        """
+        缩小图片
+        """
+        im = Image.open(self.image)
+        width, height = im.size
+
     def cut(self):
+        # 制作缩略图
         im = Image.open(self.image)
         width, height = im.size
         if width == height:
@@ -26,8 +34,7 @@ class CutImage:
 
         region = im.crop((x, y, w, h))
         dir_name = os.path.dirname(self.url)
-        large_name = 'large_' + os.path.basename(self.url)
-        large_url = os.path.join(dir_name, large_name)
-        region.save(large_url)
+        small_name = 'small_' + os.path.basename(self.url)
+        small_url = os.path.join(dir_name, small_name)
         small_region = region.resize((300, 300), Image.ANTIALIAS)
-        small_region.save(self.url)
+        small_region.save(small_url)

@@ -1,5 +1,5 @@
 from datetime import datetime
-from app import db
+from app import db, redis_store
 from app.models import Chat
 from utils.restful import params_error, success, unauth_error, server_error
 from .common import BaseHandler
@@ -37,6 +37,9 @@ class ChatHandler(BaseHandler):
                     continue
                 chat_data['logo'] = user.logo
                 chat_data['name'] = friend.remark or user.nickname
+
+                user_to_user = '_'.join(sorted([str(self.user_id), str(chat.chat_obj_id)]))
+                chat_key = 'chat_%s_*' % user_to_user
             else:
                 group = self.check_group(chat.chat_obj_id)
                 if not group:
@@ -44,8 +47,18 @@ class ChatHandler(BaseHandler):
                 print(group)
                 chat_data['logo'] = group.logo
                 chat_data['name'] = group.name
-
+                chat_key = 'chat_group_%s_*' % chat.chat_obj_id
+            keys = redis_store.keys(chat_key)
+            keys.sort()
+            if keys:
+                db_data = eval(redis_store.get(keys[-1]))
+                chat_data['message'] = db_data.get('message')
+                chat_data['update_time'] = db_data.get('create_time')
+            else:
+                chat_data['message'] = ''
             data_list.append(chat_data)
+        print(data_list)
+        data_list = sorted(data_list, key=lambda item: item['update_time'], reverse=True)
         #data_list = [chat.to_json() for chat in chat_obj]
         self.result = success(data=data_list)
 

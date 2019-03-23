@@ -544,3 +544,43 @@ BUG
 4. 用户群组成员显示异常		// 解决
 5. 群组成员添加名字显示异常	// 解决
 6. 群组成员退回上一级显示聊天异常
+7. 向好友发送消息时会多添加聊天
+
+
+
+用户发出消息
+{'chat_id': 13, 'message': '。。。', 'user_data': {'create_time': 'Fri, 22 Mar 2019 22:38:00 GMT', 'id': 8, 'logo': '/static/logo/zilanye1.jpg', 'nickname': 'abc', 'type': 2, 'username': 'abc'}}
+
+用类去实现发送消息逻辑
+登录页面重新设计
+
+
+聊天列表
+chat_list = [
+	{
+		'id': 聊天ID,
+		'name': 聊天名字,
+		'logo': 聊天头像
+		'user_id': 用户ID,
+		'chat_obj_id': 聊天对象ID,
+		'type': 聊天类型
+		'message': 聊天消息
+		'add_time': 添加时间
+	}
+]
+
+聊天页面
+data_list = [
+	{
+		'user_id': 用户ID
+		'nickname': 用户昵称
+		'message': 消息
+		'add_time': 发送时间
+		'logo': '用户头像'  
+	}
+]
+
+小新 6 68f676526d0c4b0cbbe98fd4796a736d
+
+
+李四 4 3f8e0f6f6555453b9b7f80015e0ba14d

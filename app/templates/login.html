@@ -4,36 +4,231 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .title{
-
+        * {
+            margin: 0;
+            padding: 0;
         }
-        .title>p{
 
+        html {
+            width: 100%;
+            height: 100%;
         }
-        form{
 
+        body {
+            width: 100%;
+            height: 100%;
+            text-align: center;
         }
-        .username{
 
-        }
-        .password{
+        @media screen and (max-width: 500px) {
+            html {
+                background: #fff;
+            }
 
+            .container {
+                width: 100%;
+                height: 100%;
+            }
+
+            .title {
+                height: 40px;
+                line-height: 40px;
+                background: midnightblue;
+                color: #fff;
+                margin-bottom: 30px;
+            }
+
+            .login-btn, .register-btn {
+                height: 30px;
+                line-height: 30px;
+                width: 230px;
+                border: none;
+                border-radius: 5px;
+                margin: 10px 0 2px 0;
+                background: midnightblue;
+                color: #fff;
+            }
+
+            .register-btn {
+                color: #000;
+                background: #eee;
+            }
+
+            .title > p {
+
+            }
+
+            .input {
+                height: 30px;
+                line-height: 30px;
+                margin: 15px 0;
+            }
+
+            .input > input {
+                height: 100%;
+                width: 220px;
+                padding-left: 5px;
+                border: 1px solid #ccc;
+            }
+            .error{
+                height: 30px;
+                line-height: 30px;
+                color: orangered;
+            }
+            .success{
+                height: 30px;
+                line-height: 30px;
+                color: lawngreen;
+            }
+            .register-form{
+                display: none;
+            }
+            .register-form .register-btn{
+                background: midnightblue;
+                color: #fff;
+            }
+            .register-form .login-btn{
+                background: #ccc;
+                color: #000;
+            }
         }
+
     </style>
 </head>
 <body>
-<div class="page-container">
+<div class="container">
     <div class="title">
         <p>聊天室登录</p>
     </div>
-    <form action="login" method="post">
-        <input type="text" name="username" class="username" placeholder="Username">
-        <input type="password" name="password" class="password" placeholder="Password">
-        <button type="submit">Login</button>
+    <form class="login-form" action="/login" method="post">
+        <div class="input">
+            <input type="text" name="username" class="username" placeholder="username">
+        </div>
+        <div class="input">
+            <input type="password" name="password" class="password" placeholder="password">
+        </div>
+
+        <button class="login-btn" type="submit">登录</button>
+        <button class="register-btn">注册</button>
         <div class="error"><span>{{ message }}</span></div>
+    </form>
+    <form class="register-form" action="/user" method="post">
+        <div class="input">
+            <input type="text" name="username" class="username" placeholder="username">
+        </div>
+        <div class="input">
+            <input type="text" name="nickname" class="nickname" placeholder="nickname">
+        </div>
+        <div class="input">
+            <input type="password" name="password" class="password" placeholder="password">
+        </div>
+        <div class="input">
+            <input type="password" name="repassword" class="repassword" placeholder="repassword">
+        </div>
+
+        <button class="register-btn" type="submit">注册</button>
+        <button class="login-btn">登录</button>
+
+        <div class="error"><span>{{ message }}</span></div>
+        <div class="success"><span>{{ success_message }}</span></div>
     </form>
 </div>
 <script src="/static/js/jquery-1.8.2.min.js"></script>
-<script src="/static/js/scripts.js"></script>
+<script>
+    jQuery(document).ready(function () {
+
+        // 登录事件
+        $('.container .login-form').submit(function () {
+            var username = $(this).find('.username').val();
+            var password = $(this).find('.password').val();
+            if (username.trim() == '') {
+                $(this).find('.error').fadeOut('fast', function () {
+                    $(this).css('top', '27px');
+                    $(this).text('用户名不能为空');
+                });
+                $(this).find('.error').fadeIn('fast', function () {
+                    $(this).parent().find('.username').focus();
+                });
+                return false;
+            }
+            if (password.trim() == '') {
+                $(this).find('.error').fadeOut('fast', function () {
+                    $(this).css('top', '96px');
+                    $(this).text('密码不能为空');
+                });
+                $(this).find('.error').fadeIn('fast', function () {
+                    $(this).parent().find('.password').focus();
+                });
+                return false;
+            }
+        });
+        // 注册事件
+        $('.container .register-form').submit(function () {
+            var username = $(this).find('.username').val();
+            var nickname = $(this).find('.nickname').val();
+            var password = $(this).find('.password').val();
+            var repassword = $(this).find('.repassword').val();
+            if (username.trim() == '') {
+                $(this).find('.error').fadeOut('fast', function () {
+                    $(this).css('top', '27px');
+                    $(this).text('用户名不能为空');
+                });
+                $(this).find('.error').fadeIn('fast', function () {
+                    $(this).parent().find('.username').focus();
+                });
+                return false;
+            }
+            if (nickname.trim() == '') {
+                $(this).find('.error').fadeOut('fast', function () {
+                    $(this).css('top', '27px');
+                    $(this).text('用户昵称不能为空');
+                });
+                $(this).find('.error').fadeIn('fast', function () {
+                    $(this).parent().find('.nickname').focus();
+                });
+                return false;
+            }
+            if (password.trim() == '') {
+                $(this).find('.error').fadeOut('fast', function () {
+                    $(this).css('top', '96px');
+                    $(this).text('密码不能为空');
+                });
+                $(this).find('.error').fadeIn('fast', function () {
+                    $(this).parent().find('.password').focus();
+                });
+                return false;
+            }
+            if (repassword.trim() != password.trim()) {
+                $(this).find('.error').fadeOut('fast', function () {
+                    $(this).css('top', '96px');
+                    $(this).text('密码不一致');
+                });
+                $(this).find('.error').fadeIn('fast', function () {
+                    $(this).parent().find('.repassword').focus();
+                });
+                return false;
+            }
+        });
+
+        $('.container form .username, .container form .password').keyup(function () {
+            $(this).parent().find('.error').fadeOut('fast');
+        });
+
+        // 登录页面，注册按钮点击事件
+        $('.login-form .register-btn').on('click', function(){
+            var login_form = $('.login-form');
+            login_form.css('display', 'none');
+            var register_form = $('.register-form');
+            register_form.css('display', 'block')
+        });
+        // 注册页面，登录按钮点击事件
+        $('.register-form .login-btn').on('click', function(){
+            var register_form = $('.register-form');
+            register_form.css('display', 'none');
+            var login_form = $('.login-form');
+            login_form.css('display', 'block')
+        })
+    });
+</script>
 </body>
 </html>

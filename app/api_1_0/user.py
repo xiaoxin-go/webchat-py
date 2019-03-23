@@ -1,4 +1,4 @@
-from flask import current_app
+from flask import current_app, request
 from app import db
 from app.models import User
 from utils.restful import server_error, params_error, success, unauth_error
@@ -29,9 +29,12 @@ class UserHandler(BaseHandler):
     def add_(self):
         """  注册用户 """
 
-        username = self.request_data.get('username')
-        password = self.request_data.get('password')
-        nickname = self.request_data.get('nickname')
+        # username = self.request_data.get('username')
+        # password = self.request_data.get('password')
+        # nickname = self.request_data.get('nickname')
+        username = request.form.get('username')
+        nickname = request.form.get('nickname')
+        password = request.form.get('password')
 
         # 检查用户名和密码是否存在
         if not all([username, password, nickname]):
