@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
@@ -18,6 +19,10 @@
             width: 100%;
             height: 100%;
             text-align: center;
+        }
+
+        .register-form {
+            display: none;
         }
 
         @media screen and (max-width: 500px) {
@@ -70,27 +75,83 @@
                 padding-left: 5px;
                 border: 1px solid #ccc;
             }
-            .error{
+
+            .error {
                 height: 30px;
                 line-height: 30px;
                 color: orangered;
             }
-            .success{
+
+            .success {
                 height: 30px;
                 line-height: 30px;
                 color: lawngreen;
             }
-            .register-form{
-                display: none;
-            }
-            .register-form .register-btn{
+
+            .register-form .register-btn {
                 background: midnightblue;
                 color: #fff;
             }
-            .register-form .login-btn{
+
+            .register-form .login-btn {
                 background: #ccc;
                 color: #000;
             }
+        }
+
+        @media screen and (min-width: 500px) {
+            html {
+                background: #fafafa;
+            }
+
+            .container {
+                width: 400px;
+                margin: 10% auto;
+                background: #fff;
+                box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+                padding: 20px 0;
+            }
+
+            .input > input {
+                height: 30px;
+                line-height: 30px;
+                font-size: 20px;
+                margin-bottom: 15px;
+                padding-left: 4px;
+            }
+
+            .title {
+                height: 40px;
+                line-height: 40px;
+                font-size: 26px;
+                margin-bottom: 20px;
+            }
+
+            .login-btn, .register-btn {
+                width: 258px;
+                height: 30px;
+                line-height: 30px;
+                background: mediumslateblue;
+                color: #fff;
+                border: none;
+                border-radius: 3px;
+                margin-bottom: 10px;
+            }
+            button:hover{
+                cursor: pointer;
+            }
+            .login-form .login-btn:hover, .register-form .register-btn{
+                background:slateblue;
+            }
+            .login-form .register-btn:hover, .register-btn .login-btn{
+                 background: #bbbbbb;
+            }
+
+            .login-form .register-btn, .register-form .login-btn {
+                background: #cccc;
+                color: #000;
+            }
+
         }
 
     </style>
@@ -107,9 +168,14 @@
         <div class="input">
             <input type="password" name="password" class="password" placeholder="password">
         </div>
+        <div>
+            <button class="login-btn" type="submit">登录</button>
+        </div>
+        <div>
+            <button class="register-btn">注册</button>
+        </div>
 
-        <button class="login-btn" type="submit">登录</button>
-        <button class="register-btn">注册</button>
+
         <div class="error"><span>{{ message }}</span></div>
     </form>
     <form class="register-form" action="/user" method="post">
@@ -125,9 +191,14 @@
         <div class="input">
             <input type="password" name="repassword" class="repassword" placeholder="repassword">
         </div>
+        <div>
+            <button class="register-btn" type="submit">注册</button>
+        </div>
 
-        <button class="register-btn" type="submit">注册</button>
-        <button class="login-btn">登录</button>
+        <div>
+            <button class="login-btn">登录</button>
+        </div>
+
 
         <div class="error"><span>{{ message }}</span></div>
         <div class="success"><span>{{ success_message }}</span></div>
@@ -215,14 +286,14 @@
         });
 
         // 登录页面，注册按钮点击事件
-        $('.login-form .register-btn').on('click', function(){
+        $('.login-form .register-btn').on('click', function () {
             var login_form = $('.login-form');
             login_form.css('display', 'none');
             var register_form = $('.register-form');
             register_form.css('display', 'block')
         });
         // 注册页面，登录按钮点击事件
-        $('.register-form .login-btn').on('click', function(){
+        $('.register-form .login-btn').on('click', function () {
             var register_form = $('.register-form');
             register_form.css('display', 'none');
             var login_form = $('.login-form');

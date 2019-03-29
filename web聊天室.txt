@@ -545,6 +545,10 @@ BUG
 5. 群组成员添加名字显示异常	// 解决
 6. 群组成员退回上一级显示聊天异常
 7. 向好友发送消息时会多添加聊天
+8. 添加群临时聊天，查看群成员，点击群成员头像可发起聊天，增加权限，只有管理员和群主有此权限
+9. 群组获取在线人数，根据用户sid获取，并显示在群上面
+10. 群组获取单个用户权限
+11. 编写添加群组获取好友信息接口
 
 
 
@@ -580,7 +584,73 @@ data_list = [
 	}
 ]
 
-小新 6 68f676526d0c4b0cbbe98fd4796a736d
+
+前端结构分离：
+tab
+	chat
+	friend
+	group
 
 
-李四 4 3f8e0f6f6555453b9b7f80015e0ba14d
+
+
+源地址： https://www.ixigua.com/c/user/65321895481/
+
+
+获取视频信息： https://www.ixigua.com/c/user/article/?user_id=65321895481&max_behot_time=0&max_repin_time=0&count=20&page_type=0
+data:
+	image_url: 图片地址
+	title: 视频标题
+	abstract： 摘要
+	video_watch_count: 播放次数
+	coments_count: 评论数量
+	video_duration_str: 时长
+	group_id: 
+	item_id: 
+	behot_time: 添加时间
+
+
+
+获取评论信息
+https://www.ixigua.com/api/comment/list/?group_id=6672115357253108232&item_id=6672115357253108232&offset=60&count=20
+
+data
+	total
+	comments
+		text: 评论内容
+		digg_count： 点赞数量
+		reply_data: 	回复列表
+			reply_list: []
+		reply_count: 回复数量
+		create_time: 创建时间
+		user: 
+			avatar_url: 
+			user_id: 用户ID
+			name: 用户名
+
+
+
+html
+	行内元素
+	a i span input button
+	换行元素
+	div p h1-h5 ul
+	<form>
+		用户名：<input name='username' value=''/>
+		密码：<input name='pssword' type='password'/>
+		<input type='submit' value='提交'/>
+	</form>
+
+css
+
+js
+
+vue
+
+
+user_id
+
+
+name = re.search(re.compile(r"name: '(.*?)'"),text.text).group(1)
+nickname = re.search(re.compile(r"abstract:'(.*?)'"),text.text).group(1)
+user_id = re.search(re.compile(r"media_id:'(.*?)'"),text.text).group(1)

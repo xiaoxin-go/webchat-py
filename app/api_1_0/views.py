@@ -344,3 +344,14 @@ def upload_logo():
     ci.cut()
 
     return jsonify(success(data={'url': image_path}))
+
+
+@bp.route('/get_html', methods=['GET'])
+def get_html():
+    """  获取html源码 """
+    import requests
+    html = 'http://www.baidu.com'
+    resp = requests.get(html)
+    text = resp.text
+    resp.close()
+    return jsonify(success(data=text))

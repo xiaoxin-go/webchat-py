@@ -32,7 +32,9 @@ class GroupUserHandler(BaseHandler):
         for group_user in group_user_query:
             user = self.check_user(group_user.user_id)
             if user:
-                data_list.append(user.to_dict())
+                user_data = user.to_dict()
+                user_data['type'] = group_user.type
+                data_list.append(user_data)
 
         self.result = success(data=data_list)
 
