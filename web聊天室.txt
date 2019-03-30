@@ -159,14 +159,18 @@
 		group_id: 群组ID
 	}
 	返回： {
-		state: 状态值，
-		data_list: 成员列表，
-		total: 条数
+		code: 状态值，
+		data: {
+			'data_list': 成员列表
+			'group_type':　当前用户在群组中的类型
+		}，
+		message: 消息
 	}
 	逻辑：
 	1. 获取用户ID，群组ID，判断用户和群组是否存在
 	2. 判断用户是否拥有获取群组信息权限，只有站长或者群成员拥有获取群成员权限
-	3. 返回成员列表
+	3. 返回成员列表，将好友信息合并
+	4. 返回当前用户的类型
 
 群组添加成员： addGroupUser 		=>	/group_user		=>		group_user.GroupUserHandler
 	请求： post
@@ -222,8 +226,8 @@
 		无，通过session获取用户ID
 	}
 	返回：{
-		state: 状态值， 
-		data_list: 好友列表 
+		code: 状态值， 
+		data: 好友列表 
 	}
 	逻辑：
 	1. 获取请求用户ID
@@ -654,3 +658,116 @@ user_id
 name = re.search(re.compile(r"name: '(.*?)'"),text.text).group(1)
 nickname = re.search(re.compile(r"abstract:'(.*?)'"),text.text).group(1)
 user_id = re.search(re.compile(r"media_id:'(.*?)'"),text.text).group(1)
+
+PC端发消息：
+在用户界面点击发送消息
+请求/pc/chat前先判断当前聊天是否存在，若存在则获取聊天ID进入聊天页面，否则新建聊天，并进入聊天页面
+
+
+friend_info实现功能
+在friend列表，点击某个好友，进入该页面，参数为该好友个人信息
+
+1. 发送消息
+	- 点击发送消息按钮，调用changeChat方法
+	- 调用addChat接口，传入chat_type为1， 传入好友ID，若该聊天存在，则返回聊天ID，若聊天不存在，则新建聊天并返回该聊天ID
+	- 路由跳转到/pc/chat页面，传入query参数为chat_id（手机端直接跟在路由后面）
+	- chat页面会根据聊天ID，定位到当前聊天
+
+2. 删除好友
+	- 点击删除好友按钮，调用delFreind方法
+	- 根据this.friend.id，调用delFriend接口
+	- 若删除成功，则给出提示，并跳转到/pc/friend
+	- 删除失败，给出提示信息
+
+3. 设为站长（需要对用户进行判断，只有超级用户，type为0时才有该权限，并且只有好友不是站长时才显示该按钮）
+	- this.$User.user.type === 0 && friend.type === 2
+	- 点击设为站长按钮，调用setAdmin方法+
+	- 传入好友ID，类型为1，调用updateUser方法
+	- 若设置成功，更新好友的类型为1
+	- 若设置失败，给出提示信息
+
+4. 取消站长（需要对用户进行判断，只有超级用户，type为0时才有该权限，并且只有好友是站长时才显示该按钮）
+	- this.$User.user.type === 0 && friend.type === 1
+	- 点击取消站长按钮，调用cancelAdmin方法
+	- 传入好友ID，类型为2， 调用updateUser方法
+	- 若取消成功，更新好友的类型为2
+	- 若设置失败，给出提示信息
+
+5. 修改备注
+	- 点击修改备注按钮，设置update_remark为true，显示修改备注输入框，与new_remark绑定并自动获取焦点
+	- @blur属性调用editRemark方法，先判断是否输入备注名
+	- 调用updateFriend接口，输入新备注名和friend.id
+	- 若修改成功，则修改当前friend.remark
+	- 修改失败显示提示消息
+
+friend实现功能
+1. 添加好友
+	- 点击添加好友，设置add_friend_active为true，显示friendAdd组件
+	- 输入好友昵称，点击搜索，调用searchFriend方法，调用getUser接口，传入查找用户名
+	- 若查询用户不存在给出提示
+	- 查询成功，显示用户信息，并存在添加按钮
+	- 点击添加，调用addFriend方法，调用addFriend接口，传入用户ID
+	- 若添加成功，给出提示信息，并跳转回friend页面
+	- 添加失败，给出失败提示
+
+2. 点击好友显示好友信息
+	- 点击好友头像，将select_friend设置为当前点击好友
+	- 并将add_friend_active设为false，加载friendInfo组件，显示好友信息
+
+group_info实现功能
+进入群组详情页面，获取群组用户信息，获取当前用户在群组中的地位，并过滤出所有成员ID
+1. 发消息
+	- 点击发送消息按钮，调用changeChat方法
+	- 调用addChat接口，传入chat_type为2， 传入群组ID，若该聊天存在，则返回聊天ID，若聊天不存在，则新建聊天并返回该聊天ID
+	- 路由跳转到/pc/chat页面，传入query参数为chat_id（手机端直接跟在路由后面）
+	- chat页面会根据聊天ID，定位到当前聊天
+
+2. 删除群聊（只有当前用户为站长或群主时才显示） this.$User.user.type === 0 || this.group_user.type === 0
+	- 点击删除群聊，调用delGroup方法
+	- 传入群组ID，调用delGroup接口
+	- 若删除成功，给出提示信息，并返回/pc/group
+	- 若删除失败，给出失败信息
+
+3. 添加成员（只有当前用户为站长或群主或者管理员时才显示）this.$User.user.type === 0 || this.group_user_type === 0 or 1
+	- 点击添加按钮，显示添加成员模态框
+	- 调用获取好友接口，只显示未在group_user_ids中的好友
+	- 点击添加，调用addGroupUser接口，传入群组ID和member_list好友ID列表
+	- 添加成功，给出提示信息，并重新调用group_user方法，重新获取成员信息
+	- 添加失败，给出失败提示
+
+4. 删除成员（只有当前用户为站长或群主或管理员时才显示，并且管理员只能删除普通用户）this.$User.user.type === 0 || this.group_user_type === 0 or 1
+	- 点击删除成员按钮，调用delGroupUser方法
+	- 调用delGroupUser接口，传入群组ID，用户ID
+	- 若删除成功，重新获取群组信息，并给出提示消息
+	- 若删除失败，给出提示信息
+
+5. 添加好友（只有当前用户为管理员时才显示，并且非用户好友）this.$User.user.type === 0 || this.group_user_type === 1
+	- 点击添加好友按钮，调用addFriend方法
+	- 调用addFriend接口，传入所选用户ID
+	- 若添加成功，显示提示消息， 重新获取该群组信息
+	- 若添加失败，显示提示消息
+
+6. 设置为管理员（只有当前用户为站长或者群主时才显示，并且用户为普通用户）this.$User.user.type === 0 || this.group_user === 0 && friend.type === 2
+	- 点击设置为管理员，调用addAdmin方法
+	- 调用updateGroupUser方法，传入当前选择用户ID，类型设置为1
+	- 若设置成功，调用getGroupUser方法，给出提示消息
+	- 若设置失败，给出失败提示
+
+7. 取消为管理员（只有当前用户为站长或者群主时才显示，并且用户为管理员）this.$User.user.type === 0 || this.group_user === 0 && friend.type === 1
+	- 点击取消管理员，调用delAdmin方法
+	- 调用updateGroupUser方法，传入当前选择用户ID，类型设置为2
+	- 若设置成功，调用getGroupUser方法，给出提示消息
+	- 若设置失败，给出失败提示
+
+
+/pc/group实现功能
+进入页面，获取群组列表
+1. 创建群组（只有副站长拥有创建群组权限）this.$User.user.type === 1
+	- 点击创建群组按钮，设置add_group_modal模态框为true
+	- 输入群组名称，点击确定，调用addGroup方法
+	- 调用addGroup接口，传入group_name，新建群组
+	- 若新建成功，重新获取群组列表，并给出提示
+	- 若创建失败，给出失败提示
+
+2. 点击群组调用群组信息组件
+	- 点击群组item，将select_group设置为当前群组

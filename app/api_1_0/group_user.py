@@ -36,7 +36,12 @@ class GroupUserHandler(BaseHandler):
                 user_data['type'] = group_user.type
                 data_list.append(user_data)
 
-        self.result = success(data=data_list)
+        result = {
+            'data_list': data_list,
+            'group_type': group_user_obj and group_user_obj.type
+        }
+
+        self.result = success(data=result)
 
     def add_(self):
         """  添加群成员 """
