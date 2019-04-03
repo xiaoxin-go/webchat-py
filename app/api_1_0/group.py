@@ -1,7 +1,7 @@
 import random
 from flask import current_app
 from app import db
-from app.models import Group, GroupsToUser
+from app.models import Group, GroupsToUser, Chat
 from app.constants import DEFAULT_IMAGES
 from utils.restful import server_error, params_error, success, unauth_error
 from .common import BaseHandler
@@ -168,3 +168,26 @@ class GroupHandler(BaseHandler):
             return
 
         self.result = success(message='群组修改成功')
+
+
+class QuitGroupHandler(BaseHandler):
+    """退出群组"""
+    def delete_(self):
+        group_id = self.request_data.get('group_id')
+        group_user_obj = self.check_group_user(self.user_id, group_id)
+        if not group_user_obj:
+            return
+        # 删除群组成员
+        db.session.delete(group_user_obj)
+
+        # 获取聊天
+        chat_obj = self.query_(Chat, {'type': 2, 'chat_obj_id': group_id, 'user_id': self.user_id}, '获取聊天信息异常')
+        if not chat_obj:
+            return
+
+        chat_obj.delete()
+        if not self.commit():
+            return
+
+        self.result = success(message='退出成功')
+

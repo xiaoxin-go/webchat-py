@@ -53,7 +53,7 @@ class SendMessage(BaseHandler):
         # 获取对方用户SID，发送消息给对方
         sid_key = 'chat_sid_%s' % self.chat_obj_id
         obj_sid = redis_store.get(sid_key)
-        print(obj_sid)
+        print('对方SID：',obj_sid)
         if obj_sid:
             result_data = {
                 'user_data': self.user_data,
@@ -87,7 +87,7 @@ class SendMessage(BaseHandler):
             # 获取用户SID，判断SID是否存在，若存在则发送消息
             sid_key = 'chat_sid_%s' % group_user.user_id
             obj_sid = redis_store.get(sid_key)
-            print(obj_sid)
+            print('成员SID: ',obj_sid)
             if obj_sid:
                 result_data = {
                     'user_data': self.user_data,

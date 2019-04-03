@@ -1,26 +1,23 @@
-from . import bp
 from flask import request, jsonify, current_app, session, render_template, redirect, url_for
-from flask_socketio import emit
+from . import bp
 from app import redis_store, socketio
+from .login import LoginHandler, LogoutHandler
 from .chat import ChatHandler
 from .user import UserHandler, UserInfoHandler
-from .group import GroupHandler
+from .group import GroupHandler, QuitGroupHandler
 from .group_user import GroupUserHandler
-from .friend import FriendHandler
+from .friend import FriendHandler, FriendInfoHandler
 from .chat_message import ChatMessageHandler
 from utils.restful import server_error, params_error, success, unauth_error
 from utils.cut_image import CutImage
-from app.models import *
 from .libs.send_message import SendMessage
+from app.models import *
 
-import time
 import uuid
-import json
 
 
 @socketio.on('message')
 def handle_json(request_data):
-    # 获取发送的数据
     SendMessage(request_data)
 
 
@@ -85,147 +82,15 @@ def login():
     :return:
     """
     index_url = url_for('.index', _external=True)
+    login_handler = LoginHandler(index_url)
 
     if session.get('id'):
         return redirect(index_url)
 
     if request.method == 'GET':
-        return render_template('login.html', message='', success_message='')
+        return login_handler.get_()
 
-
-    # 获取用户传输数据
-    request_data = request.form
-    username = request_data.get('username')
-    password = request_data.get('password')
-
-    if not all([username, password]):
-        return render_template('login.html', message='缺少必要参数')
-
-    # 获取用户登录IP
-    user_ip = request.remote_addr
-    try:
-        access_nums = redis_store.get('access_num_%s' % user_ip)
-    except Exception as e:
-        current_app.logger.error(e)
-    else:
-        if access_nums and int(access_nums) >= 5:
-            return render_template('login.html', message='错误次数过多，请稍后重试')
-
-    # 从数据库查询用户对象
-    try:
-        user_obj = User.query.filter_by(username=username).first()
-    except Exception as e:
-        current_app.logger.error(e)
-        return render_template('login.html', message='获取用户信息失败')
-
-    # 取出用户密码与数据库密码对比
-    if not user_obj or not user_obj.check_password(password):
-        # 如果用户不存在或者用户密码不正确，返回错误消息，并记录错误次数
-        try:
-            # redis的incr可以对字符串类型数据进行加1操作，如果数据开始不存在，则默认设置为1
-            redis_store.incr('access_num_%s' % user_ip)
-            redis_store.expire('access_num_%s' % user_ip, 600)  # 数据保存600秒
-        except Exception as e:
-            current_app.logger.error(e)
-        return render_template('login.html', message='用户名或密码错误')
-
-    # 登录成功
-    session['username'] = username
-    session['nickname'] = user_obj.nickname
-    session['id'] = user_obj.id
-
-    # 更改用户在线状态
-    user_obj.state = 1
-    try:
-        db.session.commit()
-    except Exception as e:
-        current_app.logger.error(e)
-        return render_template('login.html', message='登录异常')
-
-    return redirect(index_url)
-
-
-# @bp.route('/', methods=['GET'])
-# def index():
-#     #if session.get('id'):
-#     return render_template('index.html')
-#
-#     #login_url = url_for('.login', _external=True)
-#     #return redirect(login_url)
-
-
-# @bp.route('/login', methods=['POST'])
-# def login():
-#     """
-#     用户登录
-#     用户名、 密码
-#     :return:
-#     """
-#     #index_url = url_for('.index', _external=True)
-#
-#     #if session.get('id'):
-#     #    return redirect(index_url)
-#
-#     #if request.method == 'GET':
-#     #    return render_template('login.html')
-#
-#
-#     # 获取用户传输数据
-#     request_data = request.json
-#     username = request_data.get('username')
-#     password = request_data.get('password')
-#
-#     if not all([username, password]):
-#         #return render_template('login.html', message='缺少必要参数')
-#         return jsonify(params_error(message='缺少必要参数'))
-#
-#     # 获取用户登录IP
-#     user_ip = request.remote_addr
-#     try:
-#         access_nums = redis_store.get('access_num_%s' % user_ip)
-#     except Exception as e:
-#         current_app.logger.error(e)
-#     else:
-#         if access_nums and int(access_nums) >= 5:
-#             #return render_template('login.html', message='错误次数过多，请稍后重试')
-#             return jsonify(unauth_error(message='错误次数过多，请稍后重试'))
-#
-#     # 从数据库查询用户对象
-#     try:
-#         user_obj = User.query.filter_by(username=username).first()
-#     except Exception as e:
-#         current_app.logger.error(e)
-#         #return render_template('login.html', message='获取用户信息失败')
-#         return jsonify(server_error(message = '获取用户信息失败'))
-#
-#     # 取出用户密码与数据库密码对比
-#     if not user_obj or not user_obj.check_password(password):
-#         # 如果用户不存在或者用户密码不正确，返回错误消息，并记录错误次数
-#         try:
-#             # redis的incr可以对字符串类型数据进行加1操作，如果数据开始不存在，则默认设置为1
-#             redis_store.incr('access_num_%s' % user_ip)
-#             redis_store.expire('access_num_%s' % user_ip, 600)  # 数据保存600秒
-#         except Exception as e:
-#             current_app.logger.error(e)
-#         #return render_template('login.html', message='用户名或密码错误')
-#         return jsonify(unauth_error(message='用户名或密码错误'))
-#
-#     # 登录成功
-#     session['username'] = username
-#     session['nickname'] = user_obj.nickname
-#     session['id'] = user_obj.id
-#
-#     # 更改用户在线状态
-#     user_obj.state = 1
-#     try:
-#         db.session.commit()
-#     except Exception as e:
-#         current_app.logger.error(e)
-#         #return render_template('login.html', message='登录异常')
-#         return jsonify(server_error('登录异常'))
-#
-#     #return redirect(index_url)
-#     return jsonify(success(data=user_obj.to_dict(), message='用户登录成功'))
+    return login_handler.post_()
 
 
 @bp.route('/check_login', methods=['GET'])
@@ -249,15 +114,8 @@ def check_login():
 @bp.route('/logout', methods=['POST'])
 def logout():
     """ 用户退出登录 """
-    id = session.get('id')
-    try:
-        user_obj = User.query.get(id)
-        user_obj.state = 0
-        db.session.commit()
-    except Exception as e:
-        current_app.logger.error(e)
-    session.clear()     # 清除用户session
-    return jsonify(success())
+    logout_handler = LogoutHandler()
+    return jsonify(logout_handler.result)
 
 
 @bp.route('/group', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -265,6 +123,13 @@ def group():
     """  群组管理 """
     group_handler = GroupHandler()
     return jsonify(group_handler.result)
+
+
+@bp.route('/quit_group', methods=['DELETE'])
+def quit_group():
+    """ 退出群组 """
+    quit_group_handler = QuitGroupHandler()
+    return jsonify(quit_group_handler.result)
 
 
 @bp.route('/group_user', methods=['GET','POST', 'PUT', 'DELETE'])
@@ -279,6 +144,15 @@ def friend():
     """  好友管理 """
     friend_handler = FriendHandler()
     return jsonify(friend_handler.result)
+
+
+@bp.route('/friend_info', methods=['GET'])
+def friend_info():
+    """
+    获取好友信息
+    """
+    friend_info_handler = FriendInfoHandler()
+    return jsonify(friend_info_handler.result)
 
 
 @bp.route('/chat', methods=['GET', 'POST', 'DELETE'])

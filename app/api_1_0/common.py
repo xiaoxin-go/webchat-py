@@ -156,6 +156,7 @@ class BaseHandler:
             db.session.rollback()
             current_app.logger.error(e)
             self.result = server_error(message=content2)
+            return
 
         print('session...success')
         return True

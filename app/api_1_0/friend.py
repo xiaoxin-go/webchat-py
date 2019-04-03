@@ -107,3 +107,15 @@ class FriendHandler(BaseHandler):
         db.session.add(friend_obj_to)
         self.commit()
         self.result = success(message='好友添加成功')
+
+
+class FriendInfoHandler(BaseHandler):
+    def get_(self):
+        friend_id = self.request_data.get('friend_id')
+        user_obj = self.check_user(friend_id)
+        friend_obj = self.check_friend(self.user_id, friend_id)
+        if not user_obj or friend_obj:
+            return
+        user_data = user_obj.to_dict()
+        user_data['remark'] = friend_obj.remark
+        self.result = success(data=user_data)
