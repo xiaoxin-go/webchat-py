@@ -5,6 +5,7 @@ from app.models import User, Group, GroupsToUser, Friends, Chat
 from utils.restful import server_error,unauth_error
 import time
 
+
 def now():
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
@@ -16,6 +17,7 @@ class BaseHandler:
         self.user_id = session.get('id')
         self.user_obj = self.check_user()
         if not self.user_obj and not (request.path.split('/')[-1] == 'user' and request.method == 'POST'):
+            self.result = unauth_error(message='用户未登录')
             return
 
         if request.method == 'GET':
@@ -106,7 +108,7 @@ class BaseHandler:
         except Exception as e:
             current_app.logger.error(e)
             self.result = server_error(message='好友信息获取异常')
-            return
+            return 400
         return friend_obj
 
     def check_chat(self, chat_id):

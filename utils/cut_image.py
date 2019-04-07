@@ -38,3 +38,4 @@ class CutImage:
         small_url = os.path.join(dir_name, small_name)
         small_region = region.resize((300, 300), Image.ANTIALIAS)
         small_region.save(small_url)
+        return '/static/logo/' + small_name

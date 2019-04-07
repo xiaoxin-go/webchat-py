@@ -12,15 +12,10 @@ class GroupHandler(BaseHandler):
 
     def get_(self):
         """  获取群组信息 """
-        user_obj = self.check_user()
-        if not user_obj:
-            return
-
         # 若群组ID存在，则只取出该群组信息
         group_id = self.request_data.get('group_id')
         print('..........group_id', group_id)
         if group_id:
-            print(group_id)
             group_obj = self.check_group(group_id)
             if not group_obj:
                 return
@@ -28,7 +23,7 @@ class GroupHandler(BaseHandler):
             return
 
         # 如果用户为站长，则返回所有群组信息
-        if user_obj.type == 0:
+        if self.user_obj.type == 0:
             group_query = self.filter_all(Group, '群组信息获取异常')
 
         # 否则先从群组成员表，获取包含自己的群组ID，通过群组ID获取所在的群组

@@ -7,11 +7,10 @@ from app import db, redis_store
 
 class SendMessage(BaseHandler):
     def __init__(self, request_data):
-        request_data = request_data
-        self.user_data = request_data.get('user_data')
-        self.user_id = self.user_data.get('id')
         print('输出用户发出的消息-----------------------')
         print(request_data)
+        self.user_data = request_data.get('user_data')
+        self.user_id = self.user_data.get('id')
 
         self.add_time = now()
 

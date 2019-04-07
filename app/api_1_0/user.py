@@ -23,6 +23,14 @@ class UserHandler(BaseHandler):
         user = self.query_(User, {'username': username}, '用户信息获取异常').first()
         print('username:', username)
         data = user.to_dict() if user else {}
+        is_friend = 0
+        if user:
+        # 判断用户是否属于好友
+            friend_user = self.check_friend(self.user_id, user.id)
+            if friend_user:
+                is_friend = 1
+
+        data['is_friend'] = is_friend
         print(data)
         self.result = success(data=data)
 
@@ -62,11 +70,9 @@ class UserHandler(BaseHandler):
         logo = self.request_data.get('logo')
         nickname = self.request_data.get('nickname')
         password = self.request_data.get('password')
-        type = self.request_data.get('type')
-        if not any([logo, nickname, password, type]):
+        user_type = self.request_data.get('type')
+        if not any([logo, nickname, password, user_type]):
             self.result = params_error()
-            return
-        if not self.user_obj:
             return
 
         # 修改用户密码
@@ -77,7 +83,7 @@ class UserHandler(BaseHandler):
         elif logo:
             self.user_obj.logo = logo
         else:
-            self.user_obj.type = type
+            self.user_obj.type = user_type
 
         if not self.commit(content2='修改用户信息异常'):
             return

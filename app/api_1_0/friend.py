@@ -9,13 +9,8 @@ class FriendHandler(BaseHandler):
 
     def get_(self):
         """  获取好友列表 """
-        # 判断用户是否存在
-        user_obj = self.check_user()
-        if not user_obj:
-            return
-
         # 获取好友信息
-        if user_obj.type == 0:
+        if self.user_obj.type == 0:
             friends_query = self.filter_all(Friends, '好友信息查询异常')
         else:
             friends_query = self.query_(Friends, {'user_id': self.user_id}, '好友信息查询异常')
@@ -35,42 +30,37 @@ class FriendHandler(BaseHandler):
     def add_(self):
         """  添加好友，只有副站长和管理员拥有加人权限，强制添加，不需要同意 """
 
-        # 判断用户是否存在，获取用户
-        user_obj = self.check_user()
-        if not user_obj:
-            return
-
         friend_id = self.request_data.get('friend_id')
         if not friend_id:
             self.result = params_error()
             return
+
         # 判断被添加用户是否存在
         to_user_obj = self.check_user(friend_id)
         if not to_user_obj:
             return
 
-        # 获取群ID
-        group_id = self.request_data.get('group_id')
-        group_user_obj = self.check_group_user(self.user_id, group_id)
+        # 判断是否已经是好友
+        friend_user = self.check_friend(self.user_id, friend_id)
+        if friend_user:
+            self.result = params_error(message='已是好友')
+            return
 
-        if user_obj.type in [0, 1] or (group_user_obj and group_user_obj.type in [0, 1]):
-            self.add_handler(self.user_id, friend_id)
-        else:
-            self.result = unauth_error(message='无添加权限')
+        # 获取群ID
+        # group_id = self.request_data.get('group_id')
+        # group_user_obj = self.check_group_user(self.user_id, group_id)
+
+        # if self.user_obj.type in [0, 1] or (group_user_obj and group_user_obj.type in [0, 1]):
+        self.add_handler(self.user_id, friend_id)
+        # else:
+        #     self.result = unauth_error(message='无添加权限')
 
     def put_(self):
         """  修改好友信息，备注信息 """
         friend_id = self.request_data.get('friend_id')
         remark = self.request_data.get('remark')
-        print(self.user_id, friend_id, remark)
-        print(Friends.query.filter_by(user_id=self.user_id, friend_id=friend_id).first())
         if not all([friend_id, remark]):
             self.result = params_error()
-            return
-
-        # 检查用户是否存在
-        user_obj = self.check_user()
-        if not user_obj:
             return
 
         friend_obj = self.check_friend(self.user_id, friend_id)
@@ -78,7 +68,8 @@ class FriendHandler(BaseHandler):
             return
 
         friend_obj.remark = remark
-        self.commit()
+        if not self.commit():
+            return
         self.result = success(message='好友备注修改成功')
 
     def delete_(self):
@@ -88,15 +79,18 @@ class FriendHandler(BaseHandler):
             self.result = params_error()
             return
 
-        if not self.check_user():
-            return
-
         friend_obj = self.check_friend(self.user_id, friend_id)
         if not friend_obj:
             return
 
-        friend_obj.delete()
-        self.commit()
+        friend_obj_to = self.check_friend(friend_id, self.user_id)
+        if friend_obj_to == 400:
+            return
+
+        db.session.delete(friend_obj)
+        #db.session.delete(friend_obj_to)
+        if not self.commit():
+            return
         self.result = success(message='好友删除成功')
 
     def add_handler(self, user_id, friend_id):
@@ -105,7 +99,7 @@ class FriendHandler(BaseHandler):
         friend_obj_to = Friends(user_id=friend_id, friend_id=user_id)
         db.session.add(friend_obj)
         db.session.add(friend_obj_to)
-        self.commit()
+        if not self.commit(): return
         self.result = success(message='好友添加成功')
 
 
@@ -113,8 +107,11 @@ class FriendInfoHandler(BaseHandler):
     def get_(self):
         friend_id = self.request_data.get('friend_id')
         user_obj = self.check_user(friend_id)
+        if not user_obj:
+            return
+
         friend_obj = self.check_friend(self.user_id, friend_id)
-        if not user_obj or friend_obj:
+        if not friend_obj:
             return
         user_data = user_obj.to_dict()
         user_data['remark'] = friend_obj.remark

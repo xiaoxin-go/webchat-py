@@ -18,6 +18,9 @@ import uuid
 
 @socketio.on('message')
 def handle_json(request_data):
+    user_id = session.get('id')
+    if not user_id:
+        return
     SendMessage(request_data)
 
 
@@ -27,13 +30,16 @@ def in_chat():
     用户进入聊天页面，将用户的id和sid绑定，为chat_sid_userid = sid
     :return:
     """
+    user_id = session.get('id')
+    if not user_id:
+        return
     print('---------------用户进入聊天页面---------------')
     print(session.get('nickname'), session.get('id'), request.sid)
     print('---------------end---------------')
     if not chat:
         return
     sid = request.sid
-    user_id = session.get('id')
+
     sid_key = 'chat_sid_%s' % user_id
     redis_store.set(sid_key, sid, 3600*12)
 
@@ -44,10 +50,14 @@ def out_chat():
     用户退出聊天界面，删除用户的sid
     :return:
     """
+    user_id = session.get('id')
+    if not user_id:
+        return
+
     print('-----------------用户退出聊天页面----------------')
     print(session.get('nickname'), session.get('id'), request.sid)
     print('-----------------end-------------------')
-    user_id = session.get('id')
+
     sid_key = 'chat_sid_%s' % user_id
     redis_store.delete(sid_key)
 
@@ -215,9 +225,9 @@ def upload_logo():
         return jsonify(server_error(message='上传失败'))
 
     ci = CutImage('app' + image_path, 'app' + image_path)
-    ci.cut()
+    image_url = ci.cut()
 
-    return jsonify(success(data={'url': image_path}))
+    return jsonify(success(data={'url': image_url}))
 
 
 @bp.route('/get_html', methods=['GET'])
