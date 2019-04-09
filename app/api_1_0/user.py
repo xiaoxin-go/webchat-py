@@ -1,4 +1,4 @@
-from flask import current_app, request
+from flask import current_app, request, render_template
 from app import db
 from app.models import User
 from utils.restful import server_error, params_error, success, unauth_error
@@ -59,10 +59,12 @@ class UserHandler(BaseHandler):
         db.session.add(user_obj)
 
         if not self.commit('用户已存在', '用户添加异常'):
-            return
+            return render_template('login.html', message='用户已存在')
+            #return
 
         # 注册成功
-        self.result = success(message='注册成功')
+        #self.result = success(message='注册成功')
+        return render_template('login.html', message='注册成功')
 
     def put_(self):
         """  用户修改 """
