@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bce99db2-db45-461f-b7dc-2a4184ee200a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/api_1_0/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api_1_0/common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api_1_0/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api_1_0/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api_1_0/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api_1_0/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api_1_0/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api_1_0/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/login.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -108,11 +105,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/api_1_0/common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+            <state relative-caret-position="228">
+              <caret line="17" column="41" lean-forward="true" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/templates/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="175" column="14" lean-forward="true" selection-start-line="175" selection-start-column="14" selection-end-line="175" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -178,7 +184,6 @@
         <option value="$PROJECT_DIR$/app/static/js/scripts.js" />
         <option value="$PROJECT_DIR$/app/templates/login1.html" />
         <option value="$PROJECT_DIR$/app/api_1_0/chat.py" />
-        <option value="$PROJECT_DIR$/app/templates/login.html" />
         <option value="$PROJECT_DIR$/test.xml" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/app/api_1_0/group_user.py" />
@@ -193,6 +198,7 @@
         <option value="$PROJECT_DIR$/app/api_1_0/login.py" />
         <option value="$PROJECT_DIR$/app/api_1_0/views.py" />
         <option value="$PROJECT_DIR$/app/api_1_0/common.py" />
+        <option value="$PROJECT_DIR$/app/templates/login.html" />
       </list>
     </option>
   </component>
@@ -239,6 +245,12 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webchat-py" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webchat-py" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="webchat-py" type="b2602c69:ProjectViewProjectNode" />
@@ -397,12 +409,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1548141945137</updated>
-      <workItem from="1554775238007" duration="5228000" />
+      <workItem from="1554775238007" duration="5417000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5228000" />
+    <option name="totallyTimeSpent" value="5417000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="149" y="53" width="1001" height="716" extended-state="0" />
@@ -419,7 +431,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" x="328" y="180" width="1000" height="590" id="Terminal" order="8" type="WINDOWED" visible="true" weight="0.34164223" />
+      <window_info anchor="bottom" x="97" y="116" width="1000" height="590" id="Terminal" order="8" type="WINDOWED" visible="true" weight="0.34164223" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.35777125" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -544,13 +556,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/static/scripts.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1300">
-          <caret line="126" column="36" lean-forward="true" selection-start-line="126" selection-start-column="36" selection-end-line="126" selection-end-column="36" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api_1_0/group_user.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -681,8 +686,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api_1_0/common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+        <state relative-caret-position="228">
+          <caret line="17" column="41" lean-forward="true" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="175" column="14" lean-forward="true" selection-start-line="175" selection-start-column="14" selection-end-line="175" selection-end-column="14" />
         </state>
       </provider>
     </entry>
