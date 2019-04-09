@@ -34,7 +34,7 @@ if os.path.exists(img):
     shutil.rmtree(img)
 
 # 复制文件
-base_path = r'F:\web\webchat\dist'
+base_path = r'D:\project\web\webchat\dist'
 index = r'%s\index.html' % base_path
 shutil.copy(index, 'app/templates/index.html')
 
