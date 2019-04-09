@@ -1,7 +1,7 @@
 from flask import request, jsonify, current_app, session, render_template, redirect, url_for
 from . import bp
 from app import redis_store, socketio
-from .login import LoginHandler, LogoutHandler
+from .login import LoginHandler, LogoutHandler, RegisterHandler
 from .chat import ChatHandler
 from .user import UserHandler, UserInfoHandler
 from .group import GroupHandler, QuitGroupHandler
@@ -68,7 +68,7 @@ def user_info():
     return jsonify(user_handler.result)
 
 
-@bp.route('/user', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@bp.route('/user', methods=['GET', 'PUT', 'DELETE'])
 def user():
     """  用户管理  """
     user_handler = UserHandler()
@@ -82,6 +82,12 @@ def index():
 
     login_url = url_for('.login', _external=True)
     return redirect(login_url)
+
+
+@bp.route('/register', methods=['POST'])
+def register():
+    register_handler = RegisterHandler()
+    return register_handler.result
 
 
 @bp.route('/login', methods=['GET', 'POST'])

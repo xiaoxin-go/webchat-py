@@ -3,6 +3,7 @@ from app import redis_store, db
 from app.models import User
 from utils.restful import params_error, success, unauth_error
 from .common import BaseHandler
+import random
 
 
 class LoginHandler:
@@ -63,6 +64,35 @@ class LoginHandler:
             return render_template('login.html', message='登录异常')
 
         return redirect(self.index_url)
+
+
+class RegisterHandler(BaseHandler):
+    def add_(self):
+        """  注册用户 """
+
+        username = request.form.get('username')
+        nickname = request.form.get('nickname')
+        password = request.form.get('password')
+
+        # 检查用户名和密码是否存在
+        if not all([username, password, nickname]):
+            self.result = params_error(message='缺少必要参数')
+            return
+
+        logos = ['mingren.jpeg', 'mingren1.jpg', 'xiaoli1.jpeg', 'xiaoying1.jpeg', 'you1.jpg', 'zilanye1.jpg', 'zouzu1.jpg']
+        logo = '/static/logo/%s' % random.choice(logos)
+        # 添加用户
+        user_obj = User(username=username, nickname=nickname, logo=logo)
+
+        # 设置密码
+        user_obj.password = password  # 已自动加密
+        db.session.add(user_obj)
+
+        if not self.commit('用户已存在', '用户添加异常'):
+            self.result = render_template('login.html', message='用户已存在')
+
+        # 注册成功
+        self.result =  render_template('login.html', message='注册成功')
 
 
 class LogoutHandler(BaseHandler):

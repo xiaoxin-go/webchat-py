@@ -16,7 +16,7 @@ class BaseHandler:
         self.request_data = {}
         self.user_id = session.get('id')
         self.user_obj = self.check_user()
-        if not self.user_obj and not (request.path.split('/')[-1] == 'user' and request.method == 'POST'):
+        if not self.user_obj and not (request.path.split('/')[-1] == 'register' and request.method == 'POST'):
             self.result = unauth_error(message='用户未登录')
             return
 
