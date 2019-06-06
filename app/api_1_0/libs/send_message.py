@@ -44,10 +44,21 @@ class SendMessage(BaseHandler):
         to_chat_data= self.add_chat(user_id=self.chat_obj_id, chat_type=1, chat_obj_id=self.user_id)
 
         # 对方用户ID进行排序，用以保存聊天记录
-        user_to_user = '_'.join(sorted([str(self.user_id), str(self.chat_obj_id)]))
-        chat_key = 'chat_%s_%s' % (user_to_user, self.add_time)
+        chat_key = self.chat.get('chat_key')
+
+        l = redis_store.zcard(chat_key)
+        if not l:
+            t = 1
+        else:
+            last_t = redis_store.zrevrange(chat_key, 0, 0, withscores=True)[0][1]
+            t = last_t + 1
+
+        sub_chat_key = '%s_%s' % (chat_key, t)
+
+        self.user_data['t'] = t
         # 聊天记录保存两天
-        redis_store.set(chat_key, self.user_data, 3600 * 48)
+        redis_store.set(sub_chat_key, self.user_data)
+
         print('用户单聊。。。。。。。。。')
         # 获取对方用户SID，发送消息给对方
         sid_key = 'chat_sid_%s' % self.chat_obj_id
@@ -69,22 +80,39 @@ class SendMessage(BaseHandler):
         3. 获取群组所有成员SID，发送消息给对方
         """
         # 保存群聊消息
-        chat_key = 'chat_group_%s_%s' % (self.chat_obj_id, self.add_time)
-        redis_store.set(chat_key, self.user_data, 3600*48)
+        chat_key = self.chat.get('chat_key')
+
+        l = redis_store.zcard(chat_key)
+        if not l:
+            t = 1
+        else:
+            last_t = redis_store.zrevrange(chat_key, 0, 0, withscores=True)[0][1]
+            t = last_t + 1
+
+        sub_chat_key = '%s_%s' % (chat_key, t)
+
+        self.user_data['t'] = t
+        redis_store.set(sub_chat_key, self.user_data)
 
         print('群聊。。。。。。。。。')
         # 获取群用户消息
-        group_user_query = GroupsToUser.query.filter_by(group_id=self.chat_obj_id)
-        for group_user in group_user_query:
+        group_user_ids = redis_store.lrange('group_%s' % self.chat_obj_id, 0, -1)
+        if not group_user_ids:
+            group_user_query = GroupsToUser.query.filter_by(group_id=self.chat_obj_id)
+            group_user_ids = [group_user.id for group_user in group_user_query]
+            [redis_store.lpush('group_%s' % self.chat_obj_id,user_id) for user_id in group_user_ids]
+
+        for user_id in group_user_ids:
+            user_id = eval(user_id)
             # 如果是当前用户则跳过
-            if group_user.user_id == self.user_id:
+            if user_id == self.user_id:
                 continue
 
             # 根据群成员ID，判断对方当前群聊天是否存在，获取聊天data
-            to_chat_data = self.add_chat(user_id=group_user.user_id, chat_type=2, chat_obj_id=self.chat_obj_id)
+            to_chat_data = self.add_chat(user_id=user_id, chat_type=2, chat_obj_id=self.chat_obj_id)
 
             # 获取用户SID，判断SID是否存在，若存在则发送消息
-            sid_key = 'chat_sid_%s' % group_user.user_id
+            sid_key = 'chat_sid_%s' % user_id
             obj_sid = redis_store.get(sid_key)
             print('成员SID: ',obj_sid)
             if obj_sid:
@@ -101,7 +129,10 @@ class SendMessage(BaseHandler):
         """
         chat_obj = Chat.query.filter_by(user_id=user_id, chat_obj_id=chat_obj_id, type=chat_type).first()
         if not chat_obj:
-            chat_obj = Chat(user_id=user_id, chat_obj_id=chat_obj_id, type=chat_type)
+            chat_key = 'chat_group_%s' % chat_obj_id
+            if chat_type == 1:
+                chat_key = 'chat_%s' % '_'.join(sorted([str(user_id), str(chat_obj_id)]))
+            chat_obj = Chat(user_id=user_id, chat_obj_id=chat_obj_id, type=chat_type, chat_key=chat_key)
             db.session.add(chat_obj)
             db.session.commit()
             chat_id = chat_obj.id

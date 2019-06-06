@@ -1,6 +1,12 @@
 import os
 import shutil
 
+import redis
+r = redis.Redis('127.0.0.1', 6379, 0)
+r.zrevrangebyscore
+r.zscan()
+r.zincrby
+
 # 删除文件
 if os.path.exists(r'app\templates\index.html'):
     os.remove(r'app\templates\index.html')

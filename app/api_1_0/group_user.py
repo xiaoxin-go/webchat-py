@@ -1,5 +1,5 @@
 from flask import current_app
-from app import db
+from app import db, redis_store
 from app.models import GroupsToUser
 from utils.restful import server_error, params_error, success, unauth_error
 from .common import BaseHandler
@@ -82,6 +82,8 @@ class GroupUserHandler(BaseHandler):
 
         if not self.commit(content2='添加异常'):
             return
+
+        [redis_store.lpush('group_%s' % group_id, user_id) for user_id in member_list]
 
         self.result = success(message='用户添加成功')
 

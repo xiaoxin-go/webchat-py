@@ -16,9 +16,9 @@ class UserHandler(BaseHandler):
         username = self.request_data.get('username')
 
         # 判断用户是否拥有查询用户权限， 只有站长和副站长拥有查询权限
-        if self.user_obj.type not in [0, 1]:
-            self.result = unauth_error(message='无操作权限')
-            return
+        # if self.user_obj.type not in [0, 1]:
+        #     self.result = unauth_error(message='无操作权限')
+        #     return
 
         user = self.query_(User, {'username': username}, '用户信息获取异常').first()
         print('username:', username)

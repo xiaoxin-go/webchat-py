@@ -8,7 +8,7 @@ app = create_app('develop')
 manager = Manager(app)
 Migrate(app, db)
 manager.add_command('db', MigrateCommand)
-manager.add_command('run', socketio.run(app=app, host='192.168.1.103', port=5000))
+manager.add_command('run', socketio.run(app=app, host='192.168.253.77', port=5000))
 
 
 if __name__ == '__main__':

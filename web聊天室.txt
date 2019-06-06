@@ -840,3 +840,46 @@ PC端：
 7. redis聊天记录分页问题
 8. @成员问题
 1. 群组普通用户是否可以邀请成员？
+
+
+
+修改部分：
+1. 对聊天记录分页查询
+	聊天记录更改保存方式
+	用sortset保存， ('chat_chat_id', 'chat_data_id', ...)
+
+	单聊： chat_user_to_user 拼接后的数据
+
+			chat_key = 'chat_%s' % user_to_user
+			l = redis_store.zcard(chat_key)
+			if not l:
+				t = 0
+			else:
+				last_t = r.zrevrange(chat_key, 0, 0, withscores=True)[0][1]
+				t = last_t + 1
+
+			sub_chat_key = '%s_%s' % (chat_key, t)
+			redis_store.zadd(chat_key, {sub_chat_key: t})
+			redis_store.set(chat_key, self.user_data)
+
+
+	获取聊天记录： 每次获取10条记录
+	将最后一条消息
+
+	t = this.message_data[0].t
+
+	request_data.get('t')
+	if not t:
+		chat_keys = r.zrevrange(chat_key, 0, 9, withscores=True)
+	else:
+		chat_keys = r.zrangebyscore('test', t-20, t)
+
+
+2. 对数据进行缓存
+3. 将uesr_key保存到数据库，添加聊天时保存
+
+群聊对群组信息缓存
+group_id: []   成员id列表
+新建群组时，只添加站长ID
+添加成员时，将成员ID加入
+查询时，若成员不存在，则重新加入

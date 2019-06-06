@@ -16,24 +16,16 @@ class ChatMessageHandler(BaseHandler):
         if not chat:
             return
 
-        # 如果chat.type为1，则是单聊，取chat_user_touser_*
-        if chat.type == 1:
-            user_to_user = '_'.join(sorted([str(chat.user_id), str(chat.chat_obj_id)]))
-            chat_keys = redis_store.keys('chat_%s_*' % user_to_user)
-        # 否则为群组聊天，取chat_group_groupid
-        else:
-            chat_keys = redis_store.keys('chat_group_%s_*' % chat.chat_obj_id)
-        chat_keys.sort()
+        chat_key = chat.chat_key
         print('---------输出聊天keys和记录-------------------------')
-        print(chat_keys)
 
-        data_list = []
-        for chat_key in chat_keys:
-            message = redis_store.get(chat_key)
-            try:
-                data_list.append(eval(message))
-            except Exception as e:
-                continue
+        t = self.request_data.get('t')
+        if not t:
+            chat_keys = redis_store.zrevrange(chat_key, 0, 19)
+        else:
+            chat_keys = redis_store.zrangebyscore(chat_key, t - 20, t)
+
+        data_list = [eval(data) for data in redis_store.mget(chat_keys)]
         print(data_list)
         print('-------------end-----------------------')
         self.result = success(data=data_list)

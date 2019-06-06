@@ -1,6 +1,6 @@
 import random
 from flask import current_app
-from app import db
+from app import db, redis_store
 from app.models import Group, GroupsToUser, Chat
 from app.constants import DEFAULT_IMAGES
 from utils.restful import server_error, params_error, success, unauth_error
@@ -76,6 +76,7 @@ class GroupHandler(BaseHandler):
         if not self.commit(content2='群组添加异常'):
             return
 
+        redis_store.lpush('group_%s' % group_obj.id, self.user_id)
         self.result = success(message='群组添加成功')
 
     def put_(self):

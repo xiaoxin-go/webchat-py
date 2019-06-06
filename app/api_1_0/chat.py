@@ -79,8 +79,10 @@ class ChatHandler(BaseHandler):
             return
 
         if chat_type == 2:
+            chat_key = 'chat_group_%s' % chat_obj_id
             chat_obj = self.check_group(chat_obj_id)
         else:
+            chat_key = 'chat_%s' % '_'.join(sorted([str(self.user_id), str(chat_obj_id)]))
             chat_obj = self.check_friend(self.user_id, chat_obj_id)
 
         if not chat_obj:
@@ -93,7 +95,7 @@ class ChatHandler(BaseHandler):
             self.result = success(data=chat.id)
             return
 
-        chat = Chat(name=name, type=chat_type, chat_obj_id=chat_obj_id, user_id=self.user_id, logo=logo)
+        chat = Chat(name=name, type=chat_type, chat_obj_id=chat_obj_id, user_id=self.user_id, logo=logo, chat_key=chat_key)
         db.session.add(chat)
         self.commit()
         self.result = success(message='聊天信息添加成功', data=chat.id)

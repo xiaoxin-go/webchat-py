@@ -117,6 +117,7 @@ class Chat(BaseModel, db.Model):
     logo = db.Column(db.String(200))                # 聊天头像
     chat_obj_id = db.Column(db.Integer)             # 聊天对象ID
     message = db.Column(db.Text)                    # 聊天最后一条消息
+    chat_key = db.Column(db.String(20))             # 聊天的唯一key
     update_time = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())  # 记录更新时间
     __mapper_args__ = {
         "order_by": update_time.desc()
